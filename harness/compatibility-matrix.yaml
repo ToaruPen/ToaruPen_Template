@@ -1,0 +1,120 @@
+version: 0.1
+status: draft
+coverage: partial
+reviewed_at: 2026-03-14
+missing_policy: >-
+  Missing capability entries are not yet reviewed and must not be treated as
+  unsupported.
+
+capabilities:
+  - instructions
+  - plans
+  - skills
+  - hooks
+  - subagents
+  - mcp_tools
+  - approvals
+  - sandbox
+  - traces
+  - background_jobs
+  - review
+  - oracles
+
+vendors:
+  openai-codex:
+    support:
+      instructions:
+        status: native
+        evidence:
+          - https://developers.openai.com/codex/guides/agents-md/
+        notes: Layered AGENTS.md discovery is documented.
+      plans:
+        status: native
+        evidence:
+          - https://developers.openai.com/cookbook/articles/codex_exec_plans/
+          - https://developers.openai.com/codex/learn/best-practices/
+        notes: PLANS.md and execution-plan workflows are documented.
+      skills:
+        status: native
+        evidence:
+          - https://developers.openai.com/codex/learn/best-practices/
+        notes: Skills are documented as reusable workflow capsules.
+      mcp_tools:
+        status: native
+        evidence:
+          - https://developers.openai.com/codex/learn/best-practices/
+        notes: MCP is documented as the preferred path for external context.
+
+  anthropic-claude-code:
+    support:
+      instructions:
+        status: native
+        evidence:
+          - https://docs.anthropic.com/en/docs/claude-code/settings
+        notes: CLAUDE.md and project/user settings scopes are documented.
+      hooks:
+        status: native
+        evidence:
+          - https://docs.anthropic.com/en/docs/claude-code/hooks
+        notes: Multiple lifecycle hooks, blocking behavior, and scoped hook files are documented.
+      subagents:
+        status: native
+        evidence:
+          - https://docs.anthropic.com/en/docs/claude-code/subagents
+        notes: Built-in and custom subagents are documented.
+      mcp_tools:
+        status: native
+        evidence:
+          - https://docs.anthropic.com/en/docs/claude-code/settings
+          - https://docs.anthropic.com/en/docs/claude-code/subagents
+        notes: MCP server configuration exists in settings and subagent definitions.
+      approvals:
+        status: native
+        evidence:
+          - https://docs.anthropic.com/en/docs/claude-code/settings
+          - https://docs.anthropic.com/en/docs/claude-code/hooks
+        notes: Permission modes and permission hooks are documented.
+      sandbox:
+        status: native
+        evidence:
+          - https://docs.anthropic.com/en/docs/claude-code/settings
+        notes: Bash sandbox settings and filesystem/network controls are documented.
+
+  cursor:
+    support:
+      instructions:
+        status: native
+        evidence:
+          - https://cursor.com/blog/agent-best-practices
+        notes: Rules are documented as persistent project instructions.
+      plans:
+        status: native
+        evidence:
+          - https://cursor.com/blog/agent-best-practices
+        notes: Plan Mode and `.cursor/plans/` are documented.
+      skills:
+        status: native
+        evidence:
+          - https://cursor.com/blog/agent-best-practices
+          - https://cursor.com/blog/dynamic-context-discovery
+        notes: Skills are documented as dynamically loaded capabilities.
+      hooks:
+        status: native
+        evidence:
+          - https://cursor.com/blog/agent-best-practices
+          - https://cursor.com/blog/hooks-partners
+        notes: Hooks are documented as a way to observe, control, and extend the loop.
+      mcp_tools:
+        status: native
+        evidence:
+          - https://cursor.com/blog/dynamic-context-discovery
+          - https://cursor.com/blog/agent-best-practices
+        notes: MCP is documented as a first-class integration surface.
+
+  github-copilot-coding-agent:
+    support:
+      instructions:
+        status: native
+        evidence:
+          - https://github.blog/changelog/2025-08-28-copilot-coding-agent-now-supports-agents-md-custom-instructions/
+        notes: AGENTS.md custom instructions support is confirmed.

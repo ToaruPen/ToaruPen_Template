@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/harness/capabilities.schema.json",
+  "title": "Harness Capability Profile",
+  "description": "Canonical capability vocabulary for the Harness Kernel.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "capabilities"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^0\\.[0-9]+$"
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/capability"
+      }
+    }
+  },
+  "$defs": {
+    "capabilityId": {
+      "type": "string",
+      "enum": [
+        "instructions",
+        "plans",
+        "skills",
+        "hooks",
+        "subagents",
+        "mcp_tools",
+        "approvals",
+        "sandbox",
+        "traces",
+        "background_jobs",
+        "review",
+        "oracles"
+      ]
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "context",
+        "execution",
+        "tooling",
+        "governance",
+        "observability"
+      ]
+    },
+    "kernelStatus": {
+      "type": "string",
+      "enum": [
+        "core",
+        "optional",
+        "deferred"
+      ]
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "category",
+        "kernel_status",
+        "summary"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/capabilityId"
+        },
+        "category": {
+          "$ref": "#/$defs/category"
+        },
+        "kernel_status": {
+          "$ref": "#/$defs/kernelStatus"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repo_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
