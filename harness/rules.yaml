@@ -1,6 +1,6 @@
 version: 0.1
 status: draft
-enforcement_layers:
+planned_enforcement_layers:
   - hook
   - pre-commit
   - ci

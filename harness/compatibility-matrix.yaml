@@ -2,11 +2,15 @@ version: 0.1
 status: draft
 coverage: partial
 reviewed_at: 2026-03-14
+status_semantics:
+  native: Documented first-class or analogous surface exists for this vendor.
+  emulated: Repo-side projection or helper would be required.
+  unsupported: Reviewed and not currently represented in the checked sources.
 missing_policy: >-
   Missing capability entries are not yet reviewed and must not be treated as
   unsupported.
 
-capabilities:
+kernel_vocabulary:
   - instructions
   - plans
   - skills

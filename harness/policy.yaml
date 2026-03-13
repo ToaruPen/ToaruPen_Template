@@ -1,5 +1,6 @@
 version: 0.1
 status: draft
+enforcement_state: policy intent only; automated enforcement is not implemented yet.
 
 principles:
   source_of_truth:
