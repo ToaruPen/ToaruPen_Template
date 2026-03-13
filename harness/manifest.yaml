@@ -1,0 +1,46 @@
+version: 0.1
+status: draft
+repository:
+  name: template
+  summary: >-
+    Vendor-agnostic Harness Kernel foundation for coding-agent workflows across
+    multiple development domains.
+  phase: foundation
+
+source_of_truth:
+  workflow:
+    - DESIGN.md
+    - harness/manifest.yaml
+    - harness/capability-profile.yaml
+    - harness/policy.yaml
+    - harness/rules.yaml
+    - harness/oracles.yaml
+    - harness/compatibility-matrix.yaml
+  projections:
+    summary: Projection specs are kernel-owned source artifacts; generated vendor files are not.
+    items:
+      - harness/projections/README.md
+      - harness/projections/openai-agents.yaml
+
+current_scope:
+  includes:
+    - Kernel vocabulary
+    - Partial vendor compatibility matrix
+    - Policy, rule, and oracle scaffolding
+    - Initial projection contract for OpenAI AGENTS.md
+  excludes:
+    - Generated vendor files
+    - Runtime wrapper implementation
+    - Hook executables and CI wiring
+
+defaults:
+  profile: harness/capability-profile.yaml
+  first_projection: harness/projections/openai-agents.yaml
+  baseline_oracle_pack: core
+
+rollout:
+  current_step: foundation-docs-and-scaffolding
+  next_steps:
+    - Expand compatibility matrix coverage carefully.
+    - Add projection-specific generation rules before creating vendor files.
+    - Introduce runtime helpers only after a documented gap is demonstrated.

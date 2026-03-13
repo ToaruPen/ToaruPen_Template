@@ -1,0 +1,64 @@
+version: 0.1
+status: draft
+
+target:
+  vendor: openai-codex
+  surface: AGENTS.md
+  output_path: AGENTS.md
+
+rationale: >-
+  Use OpenAI AGENTS.md as the first projection target because it is directly
+  documented, broadly representative of repo-level instruction surfaces, and a
+  low-risk place to prove projection rules before generating more adapters.
+
+inputs:
+  - harness/manifest.yaml
+  - harness/capability-profile.yaml
+  - harness/policy.yaml
+  - harness/compatibility-matrix.yaml
+  - DESIGN.md
+
+mappings:
+  instructions:
+    source:
+      - harness/manifest.yaml
+      - harness/policy.yaml
+      - DESIGN.md
+    strategy: summarize
+    notes: Emit a short pointer-style instruction file, not a full architecture manual.
+
+  plans:
+    source:
+      - DESIGN.md
+    strategy: reference
+    notes: Mention that long-running work should rely on plan artifacts rather than inline detail.
+
+  skills:
+    source:
+      - harness/capability-profile.yaml
+    strategy: reserve
+    notes: Do not emit skill-specific instructions until skill artifacts exist in the repository.
+
+omissions:
+  - capability: approvals
+    reason: Approval projection for OpenAI AGENTS.md is not reviewed in the current compatibility matrix.
+  - capability: hooks
+    reason: AGENTS.md is not the execution surface for hook definitions.
+  - capability: subagents
+    reason: No subagent artifact exists yet in this repository.
+  - capability: sandbox
+    reason: Sandbox controls belong in runtime or vendor settings, not AGENTS.md.
+  - capability: traces
+    reason: Trace collection is runtime-side and currently unimplemented.
+  - capability: background_jobs
+    reason: No automation runtime exists yet.
+  - capability: review
+    reason: Review contracts should stay in kernel-owned artifacts until a concrete projection is designed.
+  - capability: oracles
+    reason: Verification packs should be referenced, not inlined into a lightweight AGENTS.md projection.
+
+generation_rules:
+  - Keep the projected file short and pointer-first.
+  - Do not restate the full compatibility matrix.
+  - Do not claim runtime enforcement that does not exist.
+  - Prefer references to kernel-owned files over copied detail.

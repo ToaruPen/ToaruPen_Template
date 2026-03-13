@@ -1,0 +1,73 @@
+version: 0.1
+capabilities:
+  - id: instructions
+    category: context
+    kernel_status: core
+    summary: Define durable repo guidance that can be projected into agent-facing instructions.
+    repo_role: Controls the stable instruction layer for the repository.
+
+  - id: plans
+    category: execution
+    kernel_status: core
+    summary: Capture multi-step work as reviewable plan artifacts.
+    repo_role: Preserves long-running task intent across sessions and agents.
+
+  - id: skills
+    category: tooling
+    kernel_status: core
+    summary: Represent task-specific workflow capsules loaded only when relevant.
+    repo_role: Keeps specialized guidance out of always-on context.
+
+  - id: hooks
+    category: execution
+    kernel_status: optional
+    summary: Express interception points before or after agent actions.
+    repo_role: Reserved for future runtime control and observability.
+
+  - id: subagents
+    category: execution
+    kernel_status: optional
+    summary: Model role-specialized delegation and handoff behavior.
+    repo_role: Reserved for future multi-agent workflows.
+
+  - id: mcp_tools
+    category: tooling
+    kernel_status: core
+    summary: Describe external tool connectivity through MCP-like integrations.
+    repo_role: Keeps tool-plane assumptions explicit and reviewable.
+
+  - id: approvals
+    category: governance
+    kernel_status: core
+    summary: Define human approval gates for high-impact operations.
+    repo_role: Separates policy intent from execution-time enforcement.
+
+  - id: sandbox
+    category: governance
+    kernel_status: optional
+    summary: Describe filesystem and network boundary expectations for execution.
+    repo_role: Reserved until runtime enforcement exists.
+
+  - id: traces
+    category: observability
+    kernel_status: optional
+    summary: Capture execution records and recovery context across sessions.
+    repo_role: Reserved for future wrapper or CI-side logging.
+
+  - id: background_jobs
+    category: execution
+    kernel_status: deferred
+    summary: Model scheduled or asynchronous repository tasks.
+    repo_role: Deferred until there is a concrete automation surface to map.
+
+  - id: review
+    category: governance
+    kernel_status: core
+    summary: Define reviewer input artifacts and review focus areas.
+    repo_role: Reserves review as a core kernel concept even before concrete review artifacts are added.
+
+  - id: oracles
+    category: observability
+    kernel_status: core
+    summary: Define verification packs and done conditions independent of implementation.
+    repo_role: Anchors completion criteria in explicit checks.

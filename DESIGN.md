@@ -183,6 +183,7 @@ harness/
   oracles.yaml
   review.yaml
   compatibility-matrix.yaml
+  projections/
 ```
 
 ただし、この時点で重要なのはファイルを増やすことではなく、
@@ -196,6 +197,7 @@ harness/
 - `oracles`: 検証パックの定義
 - `review`: review 入力と観点
 - `compatibility-matrix`: vendor ごとの native / emulated / unsupported
+- `projections`: vendor surface への射影契約
 
 ## 7. 共通 agent loop の初期方針
 
@@ -278,12 +280,14 @@ ADR は product specification の正本にしない。
 1. `harness/capabilities.schema.json` の初版
 2. `harness/compatibility-matrix.yaml` の partial draft
 3. `harness/policy.yaml` / `harness/rules.yaml` / `harness/oracles.yaml` の雛形
+4. `harness/manifest.yaml` と `harness/capability-profile.yaml`
+5. `harness/projections/openai-agents.yaml` と projection 規約
 
 次の実作業は、以下の順で進める。
 
 1. `harness/compatibility-matrix.yaml` の coverage を広げる
-2. `harness/manifest.yaml` もしくは capability profile instance を追加する
-3. projection 規約を定義し、最初の adapter 対象を 1 つだけ選ぶ
+2. projection spec から生成物へ落とす手順を定義する
+3. `AGENTS.md` のような最初の leaf adapter を実際に生成する
 
 引き続き vendor adapter はまだ増やしすぎない。
 adapter は matrix と policy の裏付けができてから着手する。
