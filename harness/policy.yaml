@@ -1,0 +1,43 @@
+version: 0.1
+status: draft
+
+principles:
+  source_of_truth:
+    summary: Harness artifacts are the workflow source of truth.
+    rules:
+      - Treat `harness/` as authoritative for workflow design.
+      - Treat vendor-specific files as projections, not primary authorities.
+      - Do not let product specification drift into agent-control documents.
+
+  context_management:
+    summary: Prefer pointer-first static context and on-demand discovery.
+    rules:
+      - Keep always-on instruction files short and map-like.
+      - Store long command or tool outputs as files instead of prompt text.
+      - Pull detailed context from plans, ADRs, review specs, and durable artifacts only when needed.
+
+  rollout:
+    summary: Grow kernel first, adapters later.
+    rules:
+      - Define vocabulary and policy before creating vendor adapters.
+      - Start with a partial compatibility matrix backed by evidence.
+      - Add wrappers or runtime helpers only when a concrete gap is demonstrated.
+
+approval_gates:
+  - id: add-production-dependency
+    required: true
+    reason: Dependency additions change maintenance, licensing, and security posture.
+  - id: destructive-data-change
+    required: true
+    reason: Schema, migration, or data-destructive operations must be explicitly reviewed.
+  - id: production-access
+    required: true
+    reason: Production systems require separate operational controls.
+  - id: policy-exception
+    required: true
+    reason: Any exception to kernel policy must be logged as a deliberate decision.
+
+change_limits:
+  - Do not mark missing vendor capabilities as unsupported without evidence.
+  - Do not generate adapter files before their target capability set is reviewed.
+  - Do not treat ADRs as product behavior specifications.

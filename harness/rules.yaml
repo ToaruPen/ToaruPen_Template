@@ -1,0 +1,74 @@
+version: 0.1
+status: draft
+enforcement_layers:
+  - hook
+  - pre-commit
+  - ci
+  - nightly
+
+rules:
+  - id: no-silent-catch
+    status: proposed
+    scope: code
+    adr: null
+    rationale: Swallowed errors make agent-generated failures hard to detect and repair.
+    fix_hint: Handle the error explicitly or rethrow with context.
+    examples:
+      bad: catch (err) {}
+      good: catch (err) { log.error(err); throw err; }
+
+  - id: no-broad-fallback
+    status: proposed
+    scope: code
+    adr: null
+    rationale: Broad fallbacks hide broken assumptions and weaken verification.
+    fix_hint: Narrow the fallback condition and document the intended recovery path.
+
+  - id: no-prod-mock-fallback
+    status: proposed
+    scope: code
+    adr: null
+    rationale: Mock or dummy behavior must not silently leak into production paths.
+    fix_hint: Fail fast or gate the fallback behind an explicit non-production boundary.
+
+  - id: no-any-outside-allowlist
+    status: proposed
+    scope: code
+    adr: null
+    rationale: Unbounded escape hatches erode type-level guarantees and reviewability.
+    fix_hint: Replace broad escape hatches with concrete types or a reviewed allowlist.
+
+  - id: no-unvalidated-boundary
+    status: proposed
+    scope: integration
+    adr: null
+    rationale: External inputs must be validated before entering trusted flows.
+    fix_hint: Validate at the boundary and surface explicit errors.
+
+  - id: no-floating-promise
+    status: proposed
+    scope: code
+    adr: null
+    rationale: Unobserved async failures break oracle and retry loops.
+    fix_hint: Await the promise or document and manage intentional fire-and-forget work.
+
+  - id: no-unbounded-retry
+    status: proposed
+    scope: runtime
+    adr: null
+    rationale: Infinite retries obscure incidents and can amplify failures.
+    fix_hint: Add retry limits, backoff, and an observable terminal state.
+
+  - id: no-public-api-without-proof
+    status: proposed
+    scope: api
+    adr: null
+    rationale: Public surface changes require tests, examples, or compatibility evidence.
+    fix_hint: Add verification artifacts before widening the public surface.
+
+  - id: no-generated-core-merge
+    status: proposed
+    scope: repository
+    adr: null
+    rationale: Generated artifacts must not replace hand-maintained kernel sources.
+    fix_hint: Keep generated projections separate from kernel-owned files.

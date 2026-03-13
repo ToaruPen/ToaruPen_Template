@@ -1,0 +1,94 @@
+version: 0.1
+status: draft
+
+selection_policy:
+  baseline:
+    - core
+  add_on_rules:
+    - Add `library` for SDKs, packages, and reusable modules.
+    - Add `web` for browser-facing applications.
+    - Add `backend` for services with persistence or external integrations.
+    - Add `security` when handling auth, secrets, payments, privacy, or production access.
+    - Add `perf` when latency, throughput, or memory budgets are explicit requirements.
+
+packs:
+  - id: core
+    purpose: Baseline verification for any repository.
+    checks:
+      - id: format
+        status: planned
+        done_when: A project-specific formatting command is configured and passes.
+      - id: lint
+        status: planned
+        done_when: Structural and style checks pass.
+      - id: typecheck
+        status: planned
+        done_when: Static typing or schema validation passes where applicable.
+      - id: unit
+        status: planned
+        done_when: Relevant automated tests pass for the changed scope.
+
+  - id: library
+    purpose: Verify public API behavior and consumer-facing compatibility.
+    checks:
+      - id: public-api-review
+        status: planned
+        done_when: Exported surface changes are reviewed against examples and tests.
+      - id: examples
+        status: planned
+        done_when: Consumer examples execute or remain accurate.
+      - id: integration
+        status: planned
+        done_when: Integration coverage exercises the main consumer paths.
+
+  - id: web
+    purpose: Verify browser-facing behavior.
+    checks:
+      - id: browser-e2e
+        status: planned
+        done_when: Critical user flows pass in a browser.
+      - id: console-and-network
+        status: planned
+        done_when: No unexpected console errors or failed required requests remain.
+      - id: screenshot-diff
+        status: optional
+        done_when: Visual regressions are reviewed when UI changes are significant.
+
+  - id: backend
+    purpose: Verify services, persistence, and operational safety.
+    checks:
+      - id: integration
+        status: planned
+        done_when: Service-level tests cover changed behavior.
+      - id: migration-dry-run
+        status: optional
+        done_when: Schema changes can be applied safely in a rehearsal environment.
+      - id: rollback
+        status: optional
+        done_when: A safe recovery path is documented for risky changes.
+      - id: idempotency
+        status: optional
+        done_when: Repeated execution behavior is defined where relevant.
+
+  - id: security
+    purpose: Verify security-sensitive changes independently of normal correctness checks.
+    checks:
+      - id: dependency-scan
+        status: planned
+        done_when: Dependency risk review passes for changed packages.
+      - id: secret-scan
+        status: planned
+        done_when: No secrets or credentials are introduced.
+      - id: authz-replay
+        status: optional
+        done_when: Permission-sensitive flows are replayed against expected access rules.
+
+  - id: perf
+    purpose: Verify explicit performance budgets.
+    checks:
+      - id: benchmark-threshold
+        status: optional
+        done_when: Benchmarks remain within the agreed threshold.
+      - id: memory-regression
+        status: optional
+        done_when: Memory usage stays within the expected envelope.
