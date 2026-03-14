@@ -38,9 +38,9 @@ report_vendors = vendors.sort.map do |vendor_name, vendor_data|
     'vendor' => vendor_name,
     'reviewed_capabilities' => reviewed,
     'total_capabilities' => vocabulary.length,
-    'coverage_percent' => percentage(reviewed, vocabulary.length),
+    'reviewed_coverage_percent' => percentage(reviewed, vocabulary.length),
     'status_counts' => status_counts.sort.to_h,
-    'missing_capabilities' => missing.sort
+    'unreviewed_capabilities' => missing.sort
   }
 end
 
@@ -50,7 +50,7 @@ totals = {
   'reviewed_cells' => report_vendors.sum { |entry| entry['reviewed_capabilities'] },
   'possible_cells' => report_vendors.length * vocabulary.length
 }
-totals['coverage_percent'] = percentage(totals['reviewed_cells'], totals['possible_cells'])
+totals['reviewed_coverage_percent'] = percentage(totals['reviewed_cells'], totals['possible_cells'])
 
 report = {
   'generated_at' => Time.now.utc.iso8601,
@@ -58,6 +58,8 @@ report = {
   'matrix' => relative_to_root(MATRIX_PATH),
   'matrix_status' => matrix['status'],
   'matrix_coverage' => matrix['coverage'],
+  'matrix_scope' => matrix['matrix_scope'],
+  'missing_policy' => matrix['missing_policy'],
   'totals' => totals,
   'vendors' => report_vendors
 }
@@ -65,5 +67,5 @@ report = {
 REPORT_PATH.dirname.mkpath unless REPORT_PATH.dirname.exist?
 REPORT_PATH.write(JSON.pretty_generate(report) + "\n")
 
-puts("Compatibility matrix coverage checks passed for #{report_vendors.length} vendor(s)")
+puts("Compatibility matrix coverage summary generated for #{report_vendors.length} vendor(s)")
 puts("Wrote report #{relative_to_root(REPORT_PATH)}")

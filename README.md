@@ -25,7 +25,7 @@ rules before generating vendor-specific files.
 - `scripts/check_projection_sync.rb`: realization checks for emitted and symlinked adapters
 - `scripts/check_compatibility_matrix.rb`: reviewed-cell coverage summary for the compatibility matrix
 - `reports/projection-sync.json`: latest runtime change report for projection inputs and realization checks
-- `reports/compatibility-matrix.json`: latest runtime coverage report for the compatibility matrix
+- `reports/compatibility-matrix.json`: latest runtime report for reviewed-cell coverage and unreviewed capability lists
 
 ## Working Principles
 

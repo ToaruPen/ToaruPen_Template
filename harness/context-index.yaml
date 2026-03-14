@@ -71,7 +71,7 @@ runtime_artifacts:
     usage: Inspect after running `scripts/check_projection_sync.rb`; do not treat as authoritative source.
 
   - path: reports/compatibility-matrix.json
-    role: Latest runtime report for reviewed-cell coverage and per-vendor matrix gaps.
+    role: Latest runtime report for reviewed-cell coverage and per-vendor unreviewed capability lists.
     status: generated
     usage: Inspect after running `scripts/check_compatibility_matrix.rb`; do not treat as authoritative source.
 

@@ -1,26 +1,28 @@
 {
-  "generated_at": "2026-03-14T02:41:15Z",
+  "generated_at": "2026-03-14T02:45:33Z",
   "tool": "scripts/check_compatibility_matrix.rb",
   "matrix": "harness/compatibility-matrix.yaml",
   "matrix_status": "draft",
   "matrix_coverage": "partial",
+  "matrix_scope": "This matrix describes reviewed vendor capability surfaces. It does not imply that this repository already emits or implements every corresponding adapter.",
+  "missing_policy": "Missing capability entries are not yet reviewed and must not be treated as unsupported.",
   "totals": {
     "vendors": 4,
     "capability_vocabulary_size": 12,
     "reviewed_cells": 26,
     "possible_cells": 48,
-    "coverage_percent": 54.17
+    "reviewed_coverage_percent": 54.17
   },
   "vendors": [
     {
       "vendor": "anthropic-claude-code",
       "reviewed_capabilities": 8,
       "total_capabilities": 12,
-      "coverage_percent": 66.67,
+      "reviewed_coverage_percent": 66.67,
       "status_counts": {
         "native": 8
       },
-      "missing_capabilities": [
+      "unreviewed_capabilities": [
         "background_jobs",
         "oracles",
         "review",
@@ -31,11 +33,11 @@
       "vendor": "cursor",
       "reviewed_capabilities": 5,
       "total_capabilities": 12,
-      "coverage_percent": 41.67,
+      "reviewed_coverage_percent": 41.67,
       "status_counts": {
         "native": 5
       },
-      "missing_capabilities": [
+      "unreviewed_capabilities": [
         "approvals",
         "background_jobs",
         "oracles",
@@ -49,12 +51,12 @@
       "vendor": "github-copilot-coding-agent",
       "reviewed_capabilities": 7,
       "total_capabilities": 12,
-      "coverage_percent": 58.33,
+      "reviewed_coverage_percent": 58.33,
       "status_counts": {
         "emulated": 1,
         "native": 6
       },
-      "missing_capabilities": [
+      "unreviewed_capabilities": [
         "background_jobs",
         "oracles",
         "plans",
@@ -66,11 +68,11 @@
       "vendor": "openai-codex",
       "reviewed_capabilities": 6,
       "total_capabilities": 12,
-      "coverage_percent": 50.0,
+      "reviewed_coverage_percent": 50.0,
       "status_counts": {
         "native": 6
       },
-      "missing_capabilities": [
+      "unreviewed_capabilities": [
         "background_jobs",
         "hooks",
         "oracles",

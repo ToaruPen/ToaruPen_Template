@@ -39,7 +39,7 @@ packs:
         command: ruby scripts/check_compatibility_matrix.rb
         done_when: >-
           A fresh `reports/compatibility-matrix.json` report is written with current
-          reviewed-cell coverage and per-vendor missing capability lists.
+          reviewed-cell coverage and per-vendor unreviewed capability lists.
 
   - id: library
     purpose: Verify public API behavior and consumer-facing compatibility.
