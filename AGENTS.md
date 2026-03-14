@@ -16,6 +16,7 @@ workflow artifacts remain the primary source of truth.
 Start with these files:
 
 - `README.md` for repository scope and current status
+- `harness/manifest.yaml` for the committed project intake record and stack-selection decision
 - `DESIGN.md` for rationale, rollout order, and boundaries
 - `harness/context-index.yaml` for the full durable context lookup order
 
@@ -25,7 +26,7 @@ this file aligned with it.
 ## How To Work In This Repo
 
 - Treat this repository as a template to be specialized for a future project, not as a finished product by itself.
-- Understand the target project and stack before overcommitting to generated adapters or runtime helpers.
+- Record the target project's intake and stack selection in `harness/manifest.yaml` before overcommitting to generated adapters or runtime helpers.
 - Keep repo instructions pointer-first; do not turn this file into a long handbook.
 - Treat vendor-facing files as projections, not primary authorities.
 - Treat missing compatibility entries as unreviewed, not automatically unsupported.
@@ -36,5 +37,6 @@ this file aligned with it.
 
 - The repository is still in a draft foundation phase.
 - Kernel artifacts exist under `harness/` as template-owned workflow sources.
+- `harness/manifest.yaml` is the committed home for project intake and stack-selection records.
 - `AGENTS.md` is currently the first documented leaf adapter.
 - No build, test, or runtime wrapper commands are defined yet; verification intent lives in `harness/oracles.yaml`.

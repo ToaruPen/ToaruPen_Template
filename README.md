@@ -16,7 +16,7 @@ verification, projection rules, and project-intake guidance.
 - `DESIGN.md`: design rationale, scope boundaries, and rollout order
 - `harness/capabilities.schema.json`: canonical capability vocabulary schema
 - `harness/capability-profile.yaml`: this repository's initial capability profile
-- `harness/manifest.yaml`: repository scope and rollout manifest
+- `harness/manifest.yaml`: committed specialization record for project intake, stack selection, repository scope, and rollout
 - `harness/context-index.yaml`: durable context lookup order
 - `harness/compatibility-matrix.yaml`: partial vendor compatibility matrix
 - `harness/policy.yaml`: policy intent and approval boundaries
@@ -43,10 +43,9 @@ verification, projection rules, and project-intake guidance.
 
 ## Template Workflow
 
-1. Understand the project to be built: domain, users, constraints, integrations, and delivery shape
-2. Research and select the stack that fits that project rather than forcing a default stack
-3. Adapt the kernel artifacts in `harness/` to the chosen stack and workflow
-4. Emit or symlink the vendor-facing adapters only after the kernel side is clear
+Use `harness/manifest.yaml` as the committed record for project intake, research,
+stack selection, and harness application. The template workflow order is defined
+there and should be specialized before vendor-facing adapters are expanded.
 
 ## Current Status
 
@@ -54,11 +53,11 @@ verification, projection rules, and project-intake guidance.
 - Git history is initialized and pushed
 - The first documented leaf adapter is `AGENTS.md`
 - `CLAUDE.md` is symlinked to `AGENTS.md` as a shared adapter surface
-- The template still needs clearer project-intake and stack-selection guidance
+- Project intake and stack-selection decisions now live in `harness/manifest.yaml`
 - Other vendor adapters are not emitted yet
 
 ## Next Steps
 
-1. Strengthen the template's project-intake and stack-selection workflow
+1. Fill in `harness/manifest.yaml` when a target project is identified
 2. Expand compatibility coverage carefully
 3. Run the runtime report scripts when projection or matrix state changes

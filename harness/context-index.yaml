@@ -11,7 +11,7 @@ durable_sources:
     status: active
 
   - path: harness/manifest.yaml
-    role: Repository scope, template workflow, defaults, and source-of-truth boundaries.
+    role: Committed specialization record for project intake, stack selection, workflow order, and repository scope.
     status: active
 
   - path: harness/capability-profile.yaml
@@ -56,9 +56,9 @@ durable_sources:
 
 lookup_order:
   - Start with `README.md` for template intent, repository status, and near-term usage.
-  - Clarify the future project's goals, domain, and stack direction before specializing the template.
+  - Read `specialization_record` in `harness/manifest.yaml` to understand what has already been captured and decided.
   - Read `DESIGN.md` for deeper rationale and rollout sequencing.
-  - Use `harness/manifest.yaml` and `harness/capability-profile.yaml` to understand template workflow and kernel scope.
+  - Use `harness/manifest.yaml` and `harness/capability-profile.yaml` to understand the recorded specialization state and current kernel scope.
   - Check `harness/policy.yaml`, `harness/review.yaml`, and `harness/oracles.yaml` before proposing workflow changes.
   - Consult `harness/compatibility-matrix.yaml` before claiming vendor support.
   - Consult projection specs before editing vendor-facing files.
