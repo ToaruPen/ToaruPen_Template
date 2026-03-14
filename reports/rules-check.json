@@ -1,0 +1,68 @@
+{
+  "generated_at": "2026-03-14T04:11:44Z",
+  "tool": "scripts/check_rules.rb",
+  "rules_file": "harness/rules.yaml",
+  "enforcement_state": "metadata only; layer assignment does not imply active hook or CI wiring.",
+  "planned_enforcement_layers": [
+    "hook",
+    "pre-commit",
+    "ci",
+    "nightly"
+  ],
+  "entries": [
+    {
+      "id": "no-silent-catch",
+      "status": "proposed",
+      "enforcement_layer": "pre-commit",
+      "adr": null
+    },
+    {
+      "id": "no-broad-fallback",
+      "status": "proposed",
+      "enforcement_layer": "pre-commit",
+      "adr": null
+    },
+    {
+      "id": "no-prod-mock-fallback",
+      "status": "proposed",
+      "enforcement_layer": "ci",
+      "adr": null
+    },
+    {
+      "id": "no-any-outside-allowlist",
+      "status": "proposed",
+      "enforcement_layer": "pre-commit",
+      "adr": null
+    },
+    {
+      "id": "no-unvalidated-boundary",
+      "status": "proposed",
+      "enforcement_layer": "ci",
+      "adr": null
+    },
+    {
+      "id": "no-floating-promise",
+      "status": "proposed",
+      "enforcement_layer": "pre-commit",
+      "adr": null
+    },
+    {
+      "id": "no-unbounded-retry",
+      "status": "proposed",
+      "enforcement_layer": "ci",
+      "adr": null
+    },
+    {
+      "id": "no-public-api-without-proof",
+      "status": "proposed",
+      "enforcement_layer": "ci",
+      "adr": null
+    },
+    {
+      "id": "no-generated-core-merge",
+      "status": "proposed",
+      "enforcement_layer": "hook",
+      "adr": "docs/adr/0001-manifest-centered-specialization.md"
+    }
+  ]
+}

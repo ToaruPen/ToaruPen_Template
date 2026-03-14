@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-14T03:38:54Z",
+  "generated_at": "2026-03-14T04:05:58Z",
   "tool": "scripts/check_compatibility_matrix.rb",
   "matrix": "harness/compatibility-matrix.yaml",
   "matrix_status": "draft",

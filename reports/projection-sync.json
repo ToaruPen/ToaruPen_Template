@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-14T03:38:54Z",
+  "generated_at": "2026-03-14T04:05:58Z",
   "tool": "scripts/check_projection_sync.rb",
   "projections": [
     {
@@ -18,11 +18,11 @@
       },
       "inputs": {
         "AGENTS.md": {
-          "sha256": "c2ba5969e6b553bb1546e8aa09d6f8cf5599bbe01426707d7e755e904118a56a",
+          "sha256": "45f470c986561860982c185ed2f18076bb08cb7a815e4a1512004b09830e47e4",
           "kind": "file"
         },
         "harness/manifest.yaml": {
-          "sha256": "3ce872ca2b790f5c5ba9123c242439b07470bc6095fba08b451d7ee58ef2f786",
+          "sha256": "733c199fd0bcf3138586339151ea1654a894d71ec5339cd54b2c28217c191c83",
           "kind": "file"
         },
         "harness/compatibility-matrix.yaml": {
@@ -39,12 +39,13 @@
         "kind": "symlink",
         "canonical_source": "AGENTS.md",
         "resolved_path": "AGENTS.md",
-        "resolved_sha256": "c2ba5969e6b553bb1546e8aa09d6f8cf5599bbe01426707d7e755e904118a56a"
+        "resolved_sha256": "45f470c986561860982c185ed2f18076bb08cb7a815e4a1512004b09830e47e4"
       },
       "changes_since_last_report": [
+        "AGENTS.md",
         "harness/manifest.yaml"
       ],
-      "checked_at": "2026-03-14T03:38:54Z"
+      "checked_at": "2026-03-14T04:05:58Z"
     },
     {
       "projection": "harness/projections/openai-agents.yaml",
@@ -61,11 +62,11 @@
       },
       "inputs": {
         "README.md": {
-          "sha256": "4a77604f4096131d0474396645354e2c293d296dabeabc33b3f6ea6eeadd62a9",
+          "sha256": "0e0cfac335f343e05c4a4a2b3881ead406abf45b7249b3502e1b8f526e9c5b65",
           "kind": "file"
         },
         "harness/manifest.yaml": {
-          "sha256": "3ce872ca2b790f5c5ba9123c242439b07470bc6095fba08b451d7ee58ef2f786",
+          "sha256": "733c199fd0bcf3138586339151ea1654a894d71ec5339cd54b2c28217c191c83",
           "kind": "file"
         },
         "harness/capability-profile.yaml": {
@@ -73,15 +74,15 @@
           "kind": "file"
         },
         "harness/context-index.yaml": {
-          "sha256": "192ab0cfdc2f36003f7d081925130757b4972d14a1ed22e6caabbd9e8a38a630",
+          "sha256": "766b5f4c88e6edaf5fe38a9c72fda1acace913c0dda5e2d4808c0164a6f0764d",
           "kind": "file"
         },
         "harness/policy.yaml": {
-          "sha256": "a2e709702cd28e15058471b6b1f4e13221c8d3242d0157331d09c20dd86bfa65",
+          "sha256": "aaff1a07970912f44ca2e661cf481ddd9bf1bcaba22b309ba57738a3504bb710",
           "kind": "file"
         },
         "harness/review.yaml": {
-          "sha256": "f8feba53f5612319d6a76226e22fc924cbccb82bce23a7f5c3eded5de85b954e",
+          "sha256": "e04c047c32e0f5f5e4e97939db75f48d646cd3f328770dd8421d2d8a150ae9f4",
           "kind": "file"
         },
         "harness/compatibility-matrix.yaml": {
@@ -89,19 +90,24 @@
           "kind": "file"
         },
         "DESIGN.md": {
-          "sha256": "0990b121278dc23655541f5460478d75cf476ce2c15df80b40dd99d115a51f62",
+          "sha256": "10457360bb93af1a0e138027ce5e79d45cab0c1258b12f5d2cc1e41e13350eac",
           "kind": "file"
         }
       },
       "output": {
         "path": "AGENTS.md",
         "kind": "file",
-        "sha256": "c2ba5969e6b553bb1546e8aa09d6f8cf5599bbe01426707d7e755e904118a56a"
+        "sha256": "45f470c986561860982c185ed2f18076bb08cb7a815e4a1512004b09830e47e4"
       },
       "changes_since_last_report": [
-        "harness/manifest.yaml"
+        "README.md",
+        "harness/manifest.yaml",
+        "harness/context-index.yaml",
+        "harness/policy.yaml",
+        "harness/review.yaml",
+        "DESIGN.md"
       ],
-      "checked_at": "2026-03-14T03:38:54Z"
+      "checked_at": "2026-03-14T04:05:58Z"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-03-14T04:11:43Z",
+  "tool": "scripts/check_adr.rb",
+  "adr_directory": "docs/adr",
+  "entries": [
+    {
+      "path": "docs/adr/0000-adr-template.md",
+      "status": "template",
+      "missing_headings": [
+
+      ]
+    },
+    {
+      "path": "docs/adr/0001-manifest-centered-specialization.md",
+      "status": "accepted",
+      "missing_headings": [
+
+      ]
+    }
+  ]
+}

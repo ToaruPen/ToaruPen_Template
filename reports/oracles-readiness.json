@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-03-14T04:11:44Z",
+  "tool": "scripts/check_oracles_ready.rb",
+  "manifest": "harness/manifest.yaml",
+  "oracles": "harness/oracles.yaml",
+  "stack_selection_status": "pending",
+  "harness_application_status": "pending",
+  "entries": [
+    {
+      "check_id": "format",
+      "oracle_status": "planned",
+      "blocked_on": "specialization_record.stack_selection.status == complete",
+      "manifest_status": "pending",
+      "manifest_command": "TBD"
+    },
+    {
+      "check_id": "lint",
+      "oracle_status": "planned",
+      "blocked_on": "specialization_record.stack_selection.status == complete",
+      "manifest_status": "pending",
+      "manifest_command": "TBD"
+    },
+    {
+      "check_id": "typecheck",
+      "oracle_status": "planned",
+      "blocked_on": "specialization_record.stack_selection.status == complete",
+      "manifest_status": "pending",
+      "manifest_command": "TBD"
+    },
+    {
+      "check_id": "unit",
+      "oracle_status": "planned",
+      "blocked_on": "specialization_record.stack_selection.status == complete",
+      "manifest_status": "pending",
+      "manifest_command": "TBD"
+    }
+  ],
+  "errors": [
+
+  ]
+}
