@@ -13,11 +13,14 @@ rules before generating vendor-specific files.
 - `harness/capabilities.schema.json`: canonical capability vocabulary schema
 - `harness/capability-profile.yaml`: this repository's initial capability profile
 - `harness/manifest.yaml`: repository scope and rollout manifest
+- `harness/context-index.yaml`: durable context lookup order
 - `harness/compatibility-matrix.yaml`: partial vendor compatibility matrix
 - `harness/policy.yaml`: policy intent and approval boundaries
+- `harness/review.yaml`: review inputs and questions
 - `harness/rules.yaml`: proposed structural rules
 - `harness/oracles.yaml`: planned verification packs
 - `harness/projections/`: projection contracts for vendor-specific outputs
+- `AGENTS.md`: first emitted leaf adapter based on the OpenAI projection contract
 
 ## Working Principles
 
@@ -31,11 +34,11 @@ rules before generating vendor-specific files.
 
 - Foundation artifact drafts are in place
 - Git history is initialized and pushed
-- The first documented projection target is `AGENTS.md`
-- No generated vendor adapters exist yet
+- The first documented leaf adapter is `AGENTS.md`
+- Other vendor adapters are not emitted yet
 
 ## Next Steps
 
 1. Expand compatibility coverage carefully
-2. Decide how projection specs become generated files
+2. Stabilize how projection specs stay aligned with emitted adapters
 3. Add runtime helpers only after concrete gaps are proven
