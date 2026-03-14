@@ -5,6 +5,7 @@ review_inputs:
   kernel_core:
     - README.md
     - DESIGN.md
+    - docs/adr/
     - harness/manifest.yaml
     - harness/capability-profile.yaml
     - harness/context-index.yaml
@@ -19,8 +20,14 @@ review_inputs:
     - harness/projections/anthropic-claude.yaml
     - AGENTS.md
     - CLAUDE.md
+    - scripts/check_adr.rb
+    - scripts/check_rules.rb
+    - scripts/check_oracles_ready.rb
     - scripts/check_projection_sync.rb
     - scripts/check_compatibility_matrix.rb
+    - reports/adr-check.json
+    - reports/rules-check.json
+    - reports/oracles-readiness.json
     - reports/projection-sync.json
     - reports/compatibility-matrix.json
 
@@ -29,6 +36,7 @@ review_goals:
   - Keep vendor-facing files pointer-first and shorter than their source artifacts.
   - Keep symlinked adapters aligned with their canonical leaf adapter.
   - Keep runtime reports separate from kernel-owned source artifacts.
+  - Keep ADR records explicit when durable decisions are introduced.
   - Keep matrix coverage summaries informative without treating them as support guarantees.
   - Avoid claiming vendor support beyond reviewed matrix entries.
   - Avoid implying runtime enforcement that the repo does not implement.
@@ -38,6 +46,7 @@ review_questions:
   - Does the change keep source-of-truth boundaries clear?
   - Does any vendor-facing file duplicate kernel detail instead of pointing to it?
   - Does any symlinked adapter still resolve to the intended canonical file?
+  - Does this change require a new or updated ADR per policy?
   - Does the change assume undocumented capability parity across vendors?
   - Are approval, review, and oracle claims consistent with current scaffolding?
   - Is the compatibility matrix still explicit about what is partial or unreviewed?

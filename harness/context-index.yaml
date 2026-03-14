@@ -26,6 +26,10 @@ durable_sources:
     role: Review inputs and reviewer focus areas.
     status: draft
 
+  - path: docs/adr/
+    role: Decision log for architectural, policy, and compatibility choices.
+    status: active
+
   - path: harness/oracles.yaml
     role: Verification packs and done conditions.
     status: draft
@@ -54,6 +58,18 @@ durable_sources:
     role: Verification script for compatibility matrix coverage summaries.
     status: active
 
+  - path: scripts/check_adr.rb
+    role: Verification script for ADR structure and presence.
+    status: active
+
+  - path: scripts/check_rules.rb
+    role: Verification script for rules metadata structure.
+    status: active
+
+  - path: scripts/check_oracles_ready.rb
+    role: Verification script for project-specific core quality command readiness.
+    status: active
+
 lookup_order:
   - Start with `README.md` for template intent, repository status, and near-term usage.
   - Read `specialization_record` in `harness/manifest.yaml` to understand what has already been captured and decided.
@@ -64,6 +80,7 @@ lookup_order:
   - Consult projection specs before editing vendor-facing files.
   - Treat `AGENTS.md` as the canonical shared leaf adapter when compatible symlinks are in use.
   - Run `scripts/check_projection_sync.rb` after changing projection specs or adapter files.
+  - Run `scripts/check_adr.rb`, `scripts/check_rules.rb`, and `scripts/check_oracles_ready.rb` when changing ADR, rules, or oracle-readiness metadata.
 
 runtime_artifacts:
   - path: reports/projection-sync.json
@@ -75,6 +92,21 @@ runtime_artifacts:
     role: Latest runtime report for reviewed-cell coverage and per-vendor unreviewed capability lists.
     status: generated
     usage: Inspect after running `scripts/check_compatibility_matrix.rb`; do not treat as authoritative source.
+
+  - path: reports/adr-check.json
+    role: Latest runtime report for ADR structure validation.
+    status: generated
+    usage: Inspect after running `scripts/check_adr.rb`; do not treat as authoritative source.
+
+  - path: reports/rules-check.json
+    role: Latest runtime report for rules metadata validation.
+    status: generated
+    usage: Inspect after running `scripts/check_rules.rb`; do not treat as authoritative source.
+
+  - path: reports/oracles-readiness.json
+    role: Latest runtime report for project-specific code quality command readiness.
+    status: generated
+    usage: Inspect after running `scripts/check_oracles_ready.rb`; do not treat as authoritative source.
 
 reference_artifacts:
   - path: harness/examples/manifest-specialization.example.yaml

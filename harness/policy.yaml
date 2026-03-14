@@ -31,6 +31,12 @@ principles:
       - Record domain understanding and stack selection in `harness/manifest.yaml`, and let stack choice follow researched project needs rather than template-default convenience.
       - Adapt `harness/` artifacts after the project and stack are understood, not before.
 
+  adr:
+    summary: Architectural decisions should be logged explicitly when they change durable workflow or product boundaries.
+    rules:
+      - Create or update an ADR for boundary, dependency, error-policy, fallback, compatibility, security/privacy/payment, or performance-budget decisions.
+      - Keep ADRs as decision logs in `docs/adr/`, not as product behavior specifications.
+
 approval_gates:
   - id: add-production-dependency
     required: true
