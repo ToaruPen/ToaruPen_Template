@@ -18,11 +18,19 @@ principles:
       - Pull detailed context from plans, ADRs, review specs, and durable artifacts only when needed.
 
   rollout:
-    summary: Grow kernel first, adapters later.
+    summary: Understand the target project first, then specialize the harness and its adapters.
     rules:
+      - Start with project understanding, domain research, and stack selection before changing harness projections.
       - Define vocabulary and policy before creating vendor adapters.
       - Start with a partial compatibility matrix backed by evidence.
       - Add wrappers or runtime helpers only when a concrete gap is demonstrated.
+
+  specialization:
+    summary: Template specialization follows project intake, not preset stack assumptions.
+    rules:
+      - Capture the target project's domain, constraints, and delivery shape before editing stack-specific workflow artifacts.
+      - Let stack selection follow researched project needs rather than template-default convenience.
+      - Adapt `harness/` artifacts after the project and stack are understood, not before.
 
 approval_gates:
   - id: add-production-dependency

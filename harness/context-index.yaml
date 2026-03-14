@@ -3,7 +3,7 @@ status: draft
 
 durable_sources:
   - path: README.md
-    role: Repository overview and current scope snapshot.
+    role: Repository overview, template intent, and current scope snapshot.
     status: active
 
   - path: DESIGN.md
@@ -11,7 +11,7 @@ durable_sources:
     status: active
 
   - path: harness/manifest.yaml
-    role: Repository scope, defaults, and source-of-truth boundaries.
+    role: Repository scope, template workflow, defaults, and source-of-truth boundaries.
     status: active
 
   - path: harness/capability-profile.yaml
@@ -55,9 +55,10 @@ durable_sources:
     status: active
 
 lookup_order:
-  - Start with `README.md` for repository intent and current status.
+  - Start with `README.md` for template intent, repository status, and near-term usage.
+  - Clarify the future project's goals, domain, and stack direction before specializing the template.
   - Read `DESIGN.md` for deeper rationale and rollout sequencing.
-  - Use `harness/manifest.yaml` and `harness/capability-profile.yaml` to understand kernel scope.
+  - Use `harness/manifest.yaml` and `harness/capability-profile.yaml` to understand template workflow and kernel scope.
   - Check `harness/policy.yaml`, `harness/review.yaml`, and `harness/oracles.yaml` before proposing workflow changes.
   - Consult `harness/compatibility-matrix.yaml` before claiming vendor support.
   - Consult projection specs before editing vendor-facing files.
