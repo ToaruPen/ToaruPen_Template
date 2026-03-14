@@ -18,6 +18,7 @@ Start with these files:
 - `README.md` for repository scope and current status
 - `harness/manifest.yaml` for the committed project intake record and stack-selection decision
 - `harness/examples/manifest-specialization.example.yaml` for a filled-in reference example
+- `docs/adr/` for decision records and templates
 - `DESIGN.md` for rationale, rollout order, and boundaries
 - `harness/context-index.yaml` for the full durable context lookup order
 
@@ -39,5 +40,6 @@ this file aligned with it.
 - The repository is still in a draft foundation phase.
 - Kernel artifacts exist under `harness/` as template-owned workflow sources.
 - `harness/manifest.yaml` is the committed home for project intake and stack-selection records.
+- `docs/adr/` holds the current ADR template and committed decision records.
 - `AGENTS.md` is currently the first documented leaf adapter.
 - No build, test, or runtime wrapper commands are defined yet; verification intent lives in `harness/oracles.yaml`.

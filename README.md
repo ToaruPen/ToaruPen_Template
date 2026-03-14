@@ -23,12 +23,19 @@ verification, projection rules, and project-intake guidance.
 - `harness/review.yaml`: review inputs and questions
 - `harness/rules.yaml`: proposed structural rules
 - `harness/oracles.yaml`: verification pack definitions and current check status
+- `docs/adr/`: ADR templates and committed decision records
 - `harness/projections/`: projection contracts for vendor-specific outputs
 - `harness/examples/manifest-specialization.example.yaml`: filled-in reference example for `specialization_record`
 - `AGENTS.md`: first emitted leaf adapter based on the OpenAI projection contract
 - `CLAUDE.md`: symlinked Anthropic-facing adapter pointing to `AGENTS.md`
+- `scripts/check_adr.rb`: ADR structure and presence validation
+- `scripts/check_rules.rb`: rules metadata validation
+- `scripts/check_oracles_ready.rb`: project-specific quality command readiness validation
 - `scripts/check_projection_sync.rb`: realization checks for emitted and symlinked adapters
 - `scripts/check_compatibility_matrix.rb`: reviewed-cell coverage summary for the compatibility matrix
+- `reports/adr-check.json`: latest runtime report for ADR structure validation
+- `reports/rules-check.json`: latest runtime report for rules metadata validation
+- `reports/oracles-readiness.json`: latest runtime report for core quality command readiness
 - `reports/projection-sync.json`: latest runtime change report for projection inputs and realization checks
 - `reports/compatibility-matrix.json`: latest runtime report for reviewed-cell coverage and unreviewed capability lists
 
@@ -58,10 +65,11 @@ reference example, then record real project decisions in `harness/manifest.yaml`
 - The first documented leaf adapter is `AGENTS.md`
 - `CLAUDE.md` is symlinked to `AGENTS.md` as a shared adapter surface
 - Project intake and stack-selection decisions now live in `harness/manifest.yaml`
+- ADR structure, rules metadata, and oracle-readiness checkers are now available
 - Other vendor adapters are not emitted yet
 
 ## Next Steps
 
 1. Use `harness/examples/manifest-specialization.example.yaml` as a reference, then fill in `harness/manifest.yaml`
 2. Expand compatibility coverage carefully
-3. Run the runtime report scripts when projection or matrix state changes
+3. Run the runtime report scripts when ADR, rules, or oracle-readiness state changes
