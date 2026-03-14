@@ -17,6 +17,7 @@ Start with these files:
 
 - `README.md` for repository scope and current status
 - `harness/manifest.yaml` for the committed project intake record and stack-selection decision
+- `harness/examples/manifest-specialization.example.yaml` for a filled-in reference example
 - `DESIGN.md` for rationale, rollout order, and boundaries
 - `harness/context-index.yaml` for the full durable context lookup order
 

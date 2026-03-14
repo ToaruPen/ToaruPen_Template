@@ -24,6 +24,7 @@ verification, projection rules, and project-intake guidance.
 - `harness/rules.yaml`: proposed structural rules
 - `harness/oracles.yaml`: verification pack definitions and current check status
 - `harness/projections/`: projection contracts for vendor-specific outputs
+- `harness/examples/manifest-specialization.example.yaml`: filled-in reference example for `specialization_record`
 - `AGENTS.md`: first emitted leaf adapter based on the OpenAI projection contract
 - `CLAUDE.md`: symlinked Anthropic-facing adapter pointing to `AGENTS.md`
 - `scripts/check_projection_sync.rb`: realization checks for emitted and symlinked adapters
@@ -47,6 +48,9 @@ Use `harness/manifest.yaml` as the committed record for project intake, research
 stack selection, and harness application. The template workflow order is defined
 there and should be specialized before vendor-facing adapters are expanded.
 
+See `harness/examples/manifest-specialization.example.yaml` for a filled-in
+reference example, then record real project decisions in `harness/manifest.yaml`.
+
 ## Current Status
 
 - Foundation artifact drafts are in place
@@ -58,6 +62,6 @@ there and should be specialized before vendor-facing adapters are expanded.
 
 ## Next Steps
 
-1. Fill in `harness/manifest.yaml` when a target project is identified
+1. Use `harness/examples/manifest-specialization.example.yaml` as a reference, then fill in `harness/manifest.yaml`
 2. Expand compatibility coverage carefully
 3. Run the runtime report scripts when projection or matrix state changes
