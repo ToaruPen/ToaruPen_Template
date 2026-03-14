@@ -1,0 +1,55 @@
+version: 0.1
+status: draft
+
+durable_sources:
+  - path: README.md
+    role: Repository overview and current scope snapshot.
+    status: active
+
+  - path: DESIGN.md
+    role: Design rationale, scope boundaries, and rollout order.
+    status: active
+
+  - path: harness/manifest.yaml
+    role: Repository scope, defaults, and source-of-truth boundaries.
+    status: active
+
+  - path: harness/capability-profile.yaml
+    role: Initial capability instance for this repository.
+    status: active
+
+  - path: harness/policy.yaml
+    role: Policy intent, approval boundaries, and change limits.
+    status: active
+
+  - path: harness/review.yaml
+    role: Review inputs and reviewer focus areas.
+    status: draft
+
+  - path: harness/oracles.yaml
+    role: Verification packs and done conditions.
+    status: active
+
+  - path: harness/rules.yaml
+    role: Proposed structural and lint-oriented rules.
+    status: draft
+
+  - path: harness/compatibility-matrix.yaml
+    role: Partial vendor capability coverage backed by checked sources.
+    status: partial
+
+  - path: harness/projections/openai-agents.yaml
+    role: Projection contract for the OpenAI-facing AGENTS.md leaf adapter.
+    status: draft
+
+lookup_order:
+  - Start with `README.md` for repository intent and current status.
+  - Read `DESIGN.md` for deeper rationale and rollout sequencing.
+  - Use `harness/manifest.yaml` and `harness/capability-profile.yaml` to understand kernel scope.
+  - Check `harness/policy.yaml`, `harness/review.yaml`, and `harness/oracles.yaml` before proposing workflow changes.
+  - Consult `harness/compatibility-matrix.yaml` before claiming vendor support.
+  - Consult projection specs before editing vendor-facing files.
+
+notes:
+  - Missing entries are absent, not implicitly unsupported.
+  - Vendor-facing files should reference these sources instead of duplicating them.

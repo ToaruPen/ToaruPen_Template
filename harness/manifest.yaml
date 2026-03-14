@@ -12,7 +12,9 @@ source_of_truth:
     - DESIGN.md
     - harness/manifest.yaml
     - harness/capability-profile.yaml
+    - harness/context-index.yaml
     - harness/policy.yaml
+    - harness/review.yaml
     - harness/rules.yaml
     - harness/oracles.yaml
     - harness/compatibility-matrix.yaml
@@ -26,10 +28,10 @@ current_scope:
   includes:
     - Kernel vocabulary
     - Partial vendor compatibility matrix
+    - Context and review scaffolding
     - Policy, rule, and oracle scaffolding
     - Initial projection contract for OpenAI AGENTS.md
   excludes:
-    - Generated vendor files
     - Runtime wrapper implementation
     - Hook executables and CI wiring
 
@@ -42,5 +44,5 @@ rollout:
   current_step: foundation-docs-and-scaffolding
   next_steps:
     - Expand compatibility matrix coverage carefully.
-    - Add projection-specific generation rules before creating vendor files.
+    - Keep generated leaf adapters aligned with their projection specs.
     - Introduce runtime helpers only after a documented gap is demonstrated.

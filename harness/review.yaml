@@ -1,0 +1,38 @@
+version: 0.1
+status: draft
+
+review_inputs:
+  kernel_core:
+    - README.md
+    - DESIGN.md
+    - harness/manifest.yaml
+    - harness/capability-profile.yaml
+    - harness/context-index.yaml
+    - harness/policy.yaml
+    - harness/rules.yaml
+    - harness/oracles.yaml
+    - harness/compatibility-matrix.yaml
+
+  projections:
+    - harness/projections/README.md
+    - harness/projections/openai-agents.yaml
+    - AGENTS.md
+
+review_goals:
+  - Preserve kernel artifacts as the workflow source of truth.
+  - Keep vendor-facing files pointer-first and shorter than their source artifacts.
+  - Avoid claiming vendor support beyond reviewed matrix entries.
+  - Avoid implying runtime enforcement that the repo does not implement.
+  - Keep verification expectations anchored in `harness/oracles.yaml`.
+
+review_questions:
+  - Does the change keep source-of-truth boundaries clear?
+  - Does any vendor-facing file duplicate kernel detail instead of pointing to it?
+  - Does the change assume undocumented capability parity across vendors?
+  - Are approval, review, and oracle claims consistent with current scaffolding?
+  - Is the compatibility matrix still explicit about what is partial or unreviewed?
+
+output_expectations:
+  - Reference the artifact that should remain authoritative.
+  - Flag unsupported claims before suggesting expansion.
+  - Prefer wording fixes over new abstraction unless the gap is structural.
