@@ -74,6 +74,7 @@ specialization_record:
     status: pending
     decision: TBD
     rationale: TBD
+    alignment_notes: []
     selected:
       runtime: TBD
       framework: TBD

@@ -29,6 +29,8 @@ principles:
     summary: Template specialization follows project intake, not preset stack assumptions.
     rules:
       - Record domain understanding and stack selection in `harness/manifest.yaml`, and let stack choice follow researched project needs rather than template-default convenience.
+      - If a target codebase already exists, inspect it before introducing project-specific runtime elements such as hooks, traces, CI wiring, or wrappers.
+      - Record brief user-alignment notes in `harness/manifest.yaml` when stack or runtime choices are agreed during specialization.
       - Adapt `harness/` artifacts after the project and stack are understood, not before.
 
   adr:

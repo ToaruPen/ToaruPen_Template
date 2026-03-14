@@ -37,6 +37,8 @@ specialization_record:
     status: complete
     decision: Use Next.js with TypeScript, PostgreSQL, and Playwright-backed web verification.
     rationale: Aligns with team skills, admin workflow needs, and existing data infrastructure.
+    alignment_notes:
+      - Team agreed that browser verification is worth the added setup cost.
     selected:
       runtime: Node.js
       framework: Next.js
