@@ -69,6 +69,7 @@ specialization_record:
     questions: []
     findings: []
     sources: []
+    notes: []
   stack_selection:
     status: pending
     decision: TBD
@@ -80,6 +81,7 @@ specialization_record:
       deployment_target: TBD
       tooling: []
     alternatives_considered: []
+    notes: []
     harness_artifacts:
       oracle_packs_activated: []
       capability_activations: []
