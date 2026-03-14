@@ -71,6 +71,16 @@ vendors:
         evidence:
           - https://docs.anthropic.com/en/docs/claude-code/settings
         notes: CLAUDE.md and project/user settings scopes are documented.
+      plans:
+        status: native
+        evidence:
+          - https://code.claude.com/docs/en/common-workflows
+        notes: Plan Mode is documented as an analogous planning surface for read-only analysis before implementation.
+      skills:
+        status: native
+        evidence:
+          - https://code.claude.com/docs/en/skills
+        notes: Skills are documented as reusable instructions, commands, and supporting files loaded when relevant.
       hooks:
         status: native
         evidence:
