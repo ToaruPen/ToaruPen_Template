@@ -50,7 +50,7 @@ mappings:
 
 omissions:
   - capability: approvals
-    reason: Approval projection for OpenAI AGENTS.md is not reviewed in the current compatibility matrix.
+    reason: Approval policy exists in the vendor surface, but this AGENTS.md projection omits it to avoid implying runtime enforcement from instruction text.
   - capability: hooks
     reason: AGENTS.md is not the execution surface for hook definitions.
   - capability: subagents

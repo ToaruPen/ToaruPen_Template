@@ -51,6 +51,18 @@ vendors:
         evidence:
           - https://developers.openai.com/codex/learn/best-practices/
         notes: MCP is documented as the preferred path for external context.
+      approvals:
+        status: native
+        evidence:
+          - https://developers.openai.com/codex/agent-approvals-security/
+          - https://developers.openai.com/codex/learn/best-practices/
+        notes: Approval policy is documented as a first-class control over when Codex must stop and ask before acting.
+      sandbox:
+        status: native
+        evidence:
+          - https://developers.openai.com/codex/concepts/sandboxing/
+          - https://developers.openai.com/codex/agent-approvals-security/
+        notes: Sandbox mode is documented as the technical boundary that constrains filesystem and network access in Codex runtime surfaces.
 
   anthropic-claude-code:
     support:
