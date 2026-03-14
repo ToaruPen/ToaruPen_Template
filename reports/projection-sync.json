@@ -1,0 +1,108 @@
+{
+  "generated_at": "2026-03-14T02:02:34Z",
+  "tool": "scripts/check_projection_sync.rb",
+  "projections": [
+    {
+      "projection": "harness/projections/anthropic-claude.yaml",
+      "target": {
+        "vendor": "anthropic-claude-code",
+        "surface": "CLAUDE.md",
+        "output_path": "CLAUDE.md"
+      },
+      "realization": {
+        "mode": "symlink",
+        "canonical": false,
+        "canonical_source": "AGENTS.md",
+        "sync_check": "scripts/check_projection_sync.rb",
+        "notes": "CLAUDE.md should resolve to the canonical AGENTS.md leaf adapter."
+      },
+      "inputs": {
+        "AGENTS.md": {
+          "sha256": "3c4787f18e1eb2c93c745b7a9360dfabcb42b6e9a64217b2de59320dfb64d146",
+          "kind": "file"
+        },
+        "harness/manifest.yaml": {
+          "sha256": "470ec74699e443df64ce48b6d040b05d22299897b31c436b0e08f8a339d2f8e1",
+          "kind": "file"
+        },
+        "harness/compatibility-matrix.yaml": {
+          "sha256": "3925b4684bba36152c8bcc068dbce13a9dd6039f0644d5531f15bff5eb7eea02",
+          "kind": "file"
+        },
+        "harness/projections/README.md": {
+          "sha256": "c3c2c70d4b45abcf36d0663b5e21322d5010148f7410c59e90e1e9cf72fb25fd",
+          "kind": "file"
+        }
+      },
+      "output": {
+        "path": "CLAUDE.md",
+        "kind": "symlink",
+        "canonical_source": "AGENTS.md",
+        "resolved_path": "AGENTS.md",
+        "resolved_sha256": "3c4787f18e1eb2c93c745b7a9360dfabcb42b6e9a64217b2de59320dfb64d146"
+      },
+      "changes_since_last_report": [
+
+      ],
+      "checked_at": "2026-03-14T02:02:34Z"
+    },
+    {
+      "projection": "harness/projections/openai-agents.yaml",
+      "target": {
+        "vendor": "openai-codex",
+        "surface": "AGENTS.md",
+        "output_path": "AGENTS.md"
+      },
+      "realization": {
+        "mode": "emitted",
+        "canonical": true,
+        "sync_check": "scripts/check_projection_sync.rb",
+        "notes": "AGENTS.md is committed directly and should remain a regular file."
+      },
+      "inputs": {
+        "README.md": {
+          "sha256": "f4a700df034ea2055af3393461e98233646052f4ce2efc9a9249bb62bc461aee",
+          "kind": "file"
+        },
+        "harness/manifest.yaml": {
+          "sha256": "470ec74699e443df64ce48b6d040b05d22299897b31c436b0e08f8a339d2f8e1",
+          "kind": "file"
+        },
+        "harness/capability-profile.yaml": {
+          "sha256": "e93446b39c95e1903b4cb200853a2d5859c8e1356b9c6752f8980ef69cc603ea",
+          "kind": "file"
+        },
+        "harness/context-index.yaml": {
+          "sha256": "3b92b9c4e620313921afc02799df2008c64925c24da907984c7400e700b2074f",
+          "kind": "file"
+        },
+        "harness/policy.yaml": {
+          "sha256": "49521d62417fc6799fa475f78e426c70abfa6ec0d0fab25eb70238a4a1e062fb",
+          "kind": "file"
+        },
+        "harness/review.yaml": {
+          "sha256": "2fbb4da39cf79a3391d3d60fe6d1f2545caa6011d05a69b71126e2f43cb8301a",
+          "kind": "file"
+        },
+        "harness/compatibility-matrix.yaml": {
+          "sha256": "3925b4684bba36152c8bcc068dbce13a9dd6039f0644d5531f15bff5eb7eea02",
+          "kind": "file"
+        },
+        "DESIGN.md": {
+          "sha256": "4eda93011f139996e4f40fd472b2972575626029c8c1fe4194e70d992c132551",
+          "kind": "file"
+        }
+      },
+      "output": {
+        "path": "AGENTS.md",
+        "kind": "file",
+        "sha256": "3c4787f18e1eb2c93c745b7a9360dfabcb42b6e9a64217b2de59320dfb64d146"
+      },
+      "changes_since_last_report": [
+        "README.md",
+        "harness/context-index.yaml"
+      ],
+      "checked_at": "2026-03-14T02:02:34Z"
+    }
+  ]
+}
