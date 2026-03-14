@@ -17,6 +17,13 @@ inputs:
   - harness/compatibility-matrix.yaml
   - harness/projections/README.md
 
+realization:
+  mode: symlink
+  canonical: false
+  canonical_source: AGENTS.md
+  sync_check: scripts/check_projection_sync.rb
+  notes: CLAUDE.md should resolve to the canonical AGENTS.md leaf adapter.
+
 mappings:
   instructions:
     source:

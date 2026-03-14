@@ -24,5 +24,6 @@ surface. They are design contracts, not generated outputs.
 - `target`: vendor and output path
 - `status`: draft or active
 - `inputs`: kernel artifacts that feed the projection
+- `realization`: how the target file is materialized and checked
 - `mappings`: how kernel concepts map into the target surface
 - `omissions`: what stays outside the target surface and why

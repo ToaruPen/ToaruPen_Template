@@ -21,6 +21,12 @@ inputs:
   - harness/compatibility-matrix.yaml
   - DESIGN.md
 
+realization:
+  mode: emitted
+  canonical: true
+  sync_check: scripts/check_projection_sync.rb
+  notes: AGENTS.md is committed directly and should remain a regular file.
+
 mappings:
   instructions:
     source:
