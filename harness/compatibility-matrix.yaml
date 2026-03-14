@@ -123,5 +123,37 @@ vendors:
       instructions:
         status: native
         evidence:
+          - https://docs.github.com/enterprise-cloud@latest/copilot/tutorials/coding-agent/get-the-best-results
           - https://github.blog/changelog/2025-08-28-copilot-coding-agent-now-supports-agents-md-custom-instructions/
-        notes: AGENTS.md custom instructions support is confirmed.
+        notes: Repository custom instruction surfaces are documented, including AGENTS.md support and GitHub instruction file formats.
+      skills:
+        status: native
+        evidence:
+          - https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/create-skills
+        notes: Agent skills are documented as repository or personal skill folders loaded when relevant.
+      hooks:
+        status: native
+        evidence:
+          - https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-hooks
+        notes: Coding agent hooks are documented as repository JSON configurations that run at key lifecycle points.
+      subagents:
+        status: emulated
+        evidence:
+          - https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-custom-agents
+        notes: Custom agents provide a nearby role-specialized surface, but repo-side conventions would still be needed to model kernel subagent handoff.
+      mcp_tools:
+        status: native
+        evidence:
+          - https://docs.github.com/en/copilot/concepts/agents/coding-agent/mcp-and-coding-agent
+          - https://docs.github.com/enterprise-cloud@latest/copilot/tutorials/coding-agent/get-the-best-results
+        notes: Coding agent can use MCP tools from default, repository, and custom-agent MCP server configurations.
+      approvals:
+        status: native
+        evidence:
+          - https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/configuring-agent-settings
+        notes: Repository settings document approval requirements for workflow runs, providing a limited analogous approval surface for high-impact operations.
+      sandbox:
+        status: native
+        evidence:
+          - https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/customize-the-agent-firewall
+        notes: Coding agent documents a configurable firewall and allowlist model that provides an analogous network-boundary control surface rather than a general-purpose sandbox.
