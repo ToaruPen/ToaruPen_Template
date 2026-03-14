@@ -1,0 +1,79 @@
+# THIS FILE IS A REFERENCE EXAMPLE ONLY.
+# Do NOT treat it as a committed project decision.
+# Fill in harness/manifest.yaml directly with real project data.
+
+specialization_record:
+  summary: >-
+    Example of a filled-in specialization record for a hypothetical project.
+  intake:
+    status: complete
+    target_project:
+      name: storefront-admin
+      summary: Internal dashboard for managing products, orders, and promotions.
+      domain: E-commerce operations
+      users:
+        - Internal operations staff
+        - Customer support leads
+      constraints:
+        - TypeScript-first team
+        - Browser-based admin experience
+        - Existing PostgreSQL data source
+      integrations:
+        - Stripe
+        - Internal inventory API
+      delivery_shape: Web application with authenticated admin routes
+  research:
+    status: complete
+    questions:
+      - Should the app use server-rendered routes or a client-heavy SPA approach?
+      - Which testing layers are needed for admin workflows and backend integrations?
+    findings:
+      - Next.js fits the team's TypeScript preferences and route model.
+      - Browser verification and backend integration checks are both required.
+    sources:
+      - Existing team skill profile
+      - Vendor and framework documentation reviewed during intake
+  stack_selection:
+    status: complete
+    decision: Use Next.js with TypeScript, PostgreSQL, and Playwright-backed web verification.
+    rationale: Aligns with team skills, admin workflow needs, and existing data infrastructure.
+    selected:
+      runtime: Node.js
+      framework: Next.js
+      data_layer: PostgreSQL
+      deployment_target: Managed container platform
+      tooling:
+        - TypeScript
+        - Playwright
+        - ESLint
+    alternatives_considered:
+      - Remix with TypeScript
+      - Rails with Hotwire
+    harness_artifacts:
+      oracle_packs_activated:
+        - core
+        - web
+        - backend
+      capability_activations:
+        - instructions
+        - plans
+        - skills
+        - mcp_tools
+        - review
+        - oracles
+      projections_required:
+        - harness/projections/openai-agents.yaml
+        - harness/projections/anthropic-claude.yaml
+  harness_application:
+    status: in_progress
+    artifacts_to_specialize:
+      - artifact: harness/capability-profile.yaml
+        driven_by: stack_selection.harness_artifacts.capability_activations
+        status: in_progress
+      - artifact: harness/oracles.yaml
+        driven_by: stack_selection.harness_artifacts.oracle_packs_activated
+        status: complete
+      - artifact_group: stack_selection.harness_artifacts.projections_required
+        status: pending
+    notes:
+      - Web and backend oracle packs were selected before adapter expansion.

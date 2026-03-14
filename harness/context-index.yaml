@@ -76,6 +76,11 @@ runtime_artifacts:
     status: generated
     usage: Inspect after running `scripts/check_compatibility_matrix.rb`; do not treat as authoritative source.
 
+reference_artifacts:
+  - path: harness/examples/manifest-specialization.example.yaml
+    role: Filled-in reference example for specialization_record; not a committed project decision.
+    status: reference
+
 notes:
   - Missing entries are absent, not implicitly unsupported.
   - Vendor-facing files should reference these sources instead of duplicating them.

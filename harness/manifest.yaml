@@ -47,6 +47,7 @@ specialization_record:
   summary: >-
     Committed home for project intake, stack selection, and template-level
     specialization decisions.
+  example_ref: harness/examples/manifest-specialization.example.yaml
   intake:
     status: pending
     target_project:
@@ -73,13 +74,41 @@ specialization_record:
       deployment_target: TBD
       tooling: []
     alternatives_considered: []
+    harness_artifacts:
+      oracle_packs_activated: []
+      capability_activations: []
+      projections_required: []
   harness_application:
     status: pending
     artifacts_to_specialize:
-      - harness/capability-profile.yaml
-      - harness/oracles.yaml
-      - harness/projections/
+      - artifact: harness/capability-profile.yaml
+        driven_by: stack_selection.harness_artifacts.capability_activations
+        status: pending
+      - artifact: harness/oracles.yaml
+        driven_by: stack_selection.harness_artifacts.oracle_packs_activated
+        status: pending
+      - artifact_group: stack_selection.harness_artifacts.projections_required
+        status: pending
     notes: []
+  status_guidance:
+    allowed_values:
+      pending: Not yet started.
+      in_progress: Actively being filled in; required fields may remain TBD.
+      complete: Required fields are filled and internally consistent.
+      blocked: Waiting on external input; add a note to explain the blocker.
+    completion_guidance:
+      intake:
+        starts_when: Any target_project field changes from TBD.
+        complete_when: domain, users, constraints, and delivery_shape are all non-TBD.
+      research:
+        starts_when: intake.status == complete.
+        complete_when: At least one finding and one source are recorded.
+      stack_selection:
+        starts_when: research.status == complete.
+        complete_when: selected fields are non-TBD and alternatives_considered is non-empty.
+      harness_application:
+        starts_when: stack_selection.status == complete.
+        complete_when: Every artifacts_to_specialize entry has status == complete.
 
 template_workflow:
   summary: >-
