@@ -27,6 +27,10 @@ packs:
       - id: unit
         status: planned
         done_when: Relevant automated tests pass for the changed scope.
+      - id: projection-sync
+        status: available
+        command: ruby scripts/check_projection_sync.rb
+        done_when: Emitted files and symlink targets satisfy the realization checks defined in projection specs.
 
   - id: library
     purpose: Verify public API behavior and consumer-facing compatibility.

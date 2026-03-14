@@ -28,7 +28,7 @@ durable_sources:
 
   - path: harness/oracles.yaml
     role: Verification packs and done conditions.
-    status: active
+    status: draft
 
   - path: harness/rules.yaml
     role: Proposed structural and lint-oriented rules.
@@ -46,6 +46,10 @@ durable_sources:
     role: Projection contract for the Anthropic-facing CLAUDE.md symlink adapter.
     status: draft
 
+  - path: scripts/check_projection_sync.rb
+    role: Verification script for emitted and symlinked adapter alignment.
+    status: active
+
 lookup_order:
   - Start with `README.md` for repository intent and current status.
   - Read `DESIGN.md` for deeper rationale and rollout sequencing.
@@ -54,6 +58,7 @@ lookup_order:
   - Consult `harness/compatibility-matrix.yaml` before claiming vendor support.
   - Consult projection specs before editing vendor-facing files.
   - Treat `AGENTS.md` as the canonical shared leaf adapter when compatible symlinks are in use.
+  - Run `scripts/check_projection_sync.rb` after changing projection specs or adapter files.
 
 notes:
   - Missing entries are absent, not implicitly unsupported.

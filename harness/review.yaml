@@ -19,6 +19,7 @@ review_inputs:
     - harness/projections/anthropic-claude.yaml
     - AGENTS.md
     - CLAUDE.md
+    - scripts/check_projection_sync.rb
 
 review_goals:
   - Preserve kernel artifacts as the workflow source of truth.
