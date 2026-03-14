@@ -42,6 +42,10 @@ durable_sources:
     role: Projection contract for the OpenAI-facing AGENTS.md leaf adapter.
     status: draft
 
+  - path: harness/projections/anthropic-claude.yaml
+    role: Projection contract for the Anthropic-facing CLAUDE.md symlink adapter.
+    status: draft
+
 lookup_order:
   - Start with `README.md` for repository intent and current status.
   - Read `DESIGN.md` for deeper rationale and rollout sequencing.
@@ -49,6 +53,7 @@ lookup_order:
   - Check `harness/policy.yaml`, `harness/review.yaml`, and `harness/oracles.yaml` before proposing workflow changes.
   - Consult `harness/compatibility-matrix.yaml` before claiming vendor support.
   - Consult projection specs before editing vendor-facing files.
+  - Treat `AGENTS.md` as the canonical shared leaf adapter when compatible symlinks are in use.
 
 notes:
   - Missing entries are absent, not implicitly unsupported.

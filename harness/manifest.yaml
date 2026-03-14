@@ -23,6 +23,7 @@ source_of_truth:
     items:
       - harness/projections/README.md
       - harness/projections/openai-agents.yaml
+      - harness/projections/anthropic-claude.yaml
 
 current_scope:
   includes:
@@ -30,7 +31,7 @@ current_scope:
     - Partial vendor compatibility matrix
     - Context and review scaffolding
     - Policy, rule, and oracle scaffolding
-    - Initial projection contract for OpenAI AGENTS.md
+    - Initial projection contracts for OpenAI AGENTS.md and Anthropic CLAUDE.md
   excludes:
     - Runtime wrapper implementation
     - Hook executables and CI wiring
@@ -38,6 +39,7 @@ current_scope:
 defaults:
   profile: harness/capability-profile.yaml
   first_projection: harness/projections/openai-agents.yaml
+  shared_leaf_adapter: AGENTS.md
   baseline_oracle_pack: core
 
 rollout:
@@ -45,4 +47,5 @@ rollout:
   next_steps:
     - Expand compatibility matrix coverage carefully.
     - Keep generated leaf adapters aligned with their projection specs.
+    - Use symlinked adapters only where source-of-truth boundaries stay clear.
     - Introduce runtime helpers only after a documented gap is demonstrated.

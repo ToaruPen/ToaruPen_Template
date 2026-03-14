@@ -16,11 +16,14 @@ review_inputs:
   projections:
     - harness/projections/README.md
     - harness/projections/openai-agents.yaml
+    - harness/projections/anthropic-claude.yaml
     - AGENTS.md
+    - CLAUDE.md
 
 review_goals:
   - Preserve kernel artifacts as the workflow source of truth.
   - Keep vendor-facing files pointer-first and shorter than their source artifacts.
+  - Keep symlinked adapters aligned with their canonical leaf adapter.
   - Avoid claiming vendor support beyond reviewed matrix entries.
   - Avoid implying runtime enforcement that the repo does not implement.
   - Keep verification expectations anchored in `harness/oracles.yaml`.
@@ -28,6 +31,7 @@ review_goals:
 review_questions:
   - Does the change keep source-of-truth boundaries clear?
   - Does any vendor-facing file duplicate kernel detail instead of pointing to it?
+  - Does any symlinked adapter still resolve to the intended canonical file?
   - Does the change assume undocumented capability parity across vendors?
   - Are approval, review, and oracle claims consistent with current scaffolding?
   - Is the compatibility matrix still explicit about what is partial or unreviewed?

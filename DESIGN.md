@@ -284,12 +284,13 @@ ADR は product specification の正本にしない。
 5. `harness/projections/openai-agents.yaml` と projection 規約
 6. `harness/context-index.yaml` と `harness/review.yaml`
 7. 最初の `AGENTS.md` leaf adapter
+8. `CLAUDE.md` を `AGENTS.md` へ向ける symlink adapter
 
 次の実作業は、以下の順で進める。
 
 1. `harness/compatibility-matrix.yaml` の coverage を広げる
 2. projection spec と leaf adapter の同期方法を安定化する
-3. `AGENTS.md` 以外の leaf adapter 候補を 1 つずつ追加する
+3. symlink で共有できない leaf adapter 候補を 1 つずつ追加する
 
 引き続き vendor adapter はまだ増やしすぎない。
 adapter は matrix と policy の裏付けができてから着手する。
