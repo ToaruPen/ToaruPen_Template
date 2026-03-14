@@ -289,7 +289,7 @@ ADR は product specification の正本にしない。
 次の実作業は、以下の順で進める。
 
 1. `harness/compatibility-matrix.yaml` の coverage を広げる
-2. projection spec と leaf adapter の同期方法を安定化する
+2. projection spec と leaf adapter の realization check を拡張する
 3. symlink で共有できない leaf adapter 候補を 1 つずつ追加する
 
 引き続き vendor adapter はまだ増やしすぎない。

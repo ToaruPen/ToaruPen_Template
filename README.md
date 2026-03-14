@@ -18,10 +18,11 @@ rules before generating vendor-specific files.
 - `harness/policy.yaml`: policy intent and approval boundaries
 - `harness/review.yaml`: review inputs and questions
 - `harness/rules.yaml`: proposed structural rules
-- `harness/oracles.yaml`: planned verification packs
+- `harness/oracles.yaml`: verification pack definitions and current check status
 - `harness/projections/`: projection contracts for vendor-specific outputs
 - `AGENTS.md`: first emitted leaf adapter based on the OpenAI projection contract
 - `CLAUDE.md`: symlinked Anthropic-facing adapter pointing to `AGENTS.md`
+- `scripts/check_projection_sync.rb`: verification for emitted and symlinked adapters
 
 ## Working Principles
 
@@ -42,5 +43,5 @@ rules before generating vendor-specific files.
 ## Next Steps
 
 1. Expand compatibility coverage carefully
-2. Stabilize how projection specs stay aligned with emitted or symlinked adapters
+2. Check emitted or symlinked adapter realization with `scripts/check_projection_sync.rb`
 3. Add runtime helpers only after concrete gaps are proven
