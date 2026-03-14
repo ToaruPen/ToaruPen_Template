@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-14T04:11:44Z",
+  "generated_at": "2026-03-14T06:19:11Z",
   "tool": "scripts/check_oracles_ready.rb",
   "manifest": "harness/manifest.yaml",
   "oracles": "harness/oracles.yaml",
