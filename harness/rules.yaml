@@ -1,5 +1,6 @@
 version: 0.1
 status: draft
+enforcement_state: metadata only; layer assignment does not imply active hook or CI wiring.
 planned_enforcement_layers:
   - hook
   - pre-commit
@@ -11,6 +12,7 @@ rules:
     status: proposed
     scope: code
     adr: null
+    enforcement_layer: pre-commit
     rationale: Swallowed errors make agent-generated failures hard to detect and repair.
     fix_hint: Handle the error explicitly or rethrow with context.
     examples:
@@ -21,6 +23,7 @@ rules:
     status: proposed
     scope: code
     adr: null
+    enforcement_layer: pre-commit
     rationale: Broad fallbacks hide broken assumptions and weaken verification.
     fix_hint: Narrow the fallback condition and document the intended recovery path.
 
@@ -28,6 +31,7 @@ rules:
     status: proposed
     scope: code
     adr: null
+    enforcement_layer: ci
     rationale: Mock or dummy behavior must not silently leak into production paths.
     fix_hint: Fail fast or gate the fallback behind an explicit non-production boundary.
 
@@ -35,6 +39,7 @@ rules:
     status: proposed
     scope: code
     adr: null
+    enforcement_layer: pre-commit
     rationale: Unbounded escape hatches erode type-level guarantees and reviewability.
     fix_hint: Replace broad escape hatches with concrete types or a reviewed allowlist.
 
@@ -42,6 +47,7 @@ rules:
     status: proposed
     scope: integration
     adr: null
+    enforcement_layer: ci
     rationale: External inputs must be validated before entering trusted flows.
     fix_hint: Validate at the boundary and surface explicit errors.
 
@@ -49,6 +55,7 @@ rules:
     status: proposed
     scope: code
     adr: null
+    enforcement_layer: pre-commit
     rationale: Unobserved async failures break oracle and retry loops.
     fix_hint: Await the promise or document and manage intentional fire-and-forget work.
 
@@ -56,6 +63,7 @@ rules:
     status: proposed
     scope: runtime
     adr: null
+    enforcement_layer: ci
     rationale: Infinite retries obscure incidents and can amplify failures.
     fix_hint: Add retry limits, backoff, and an observable terminal state.
 
@@ -63,12 +71,14 @@ rules:
     status: proposed
     scope: api
     adr: null
+    enforcement_layer: ci
     rationale: Public surface changes require tests, examples, or compatibility evidence.
     fix_hint: Add verification artifacts before widening the public surface.
 
   - id: no-generated-core-merge
     status: proposed
     scope: repository
-    adr: null
+    adr: docs/adr/0001-manifest-centered-specialization.md
+    enforcement_layer: hook
     rationale: Generated artifacts must not replace hand-maintained kernel sources.
     fix_hint: Keep generated projections separate from kernel-owned files.

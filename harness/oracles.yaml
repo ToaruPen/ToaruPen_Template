@@ -17,16 +17,38 @@ packs:
     checks:
       - id: format
         status: planned
+        blocked_on: specialization_record.stack_selection.status == complete
+        command_source: specialization_record.harness_application.quality_commands.format.command
         done_when: A project-specific formatting command is configured and passes.
       - id: lint
         status: planned
+        blocked_on: specialization_record.stack_selection.status == complete
+        command_source: specialization_record.harness_application.quality_commands.lint.command
         done_when: Structural and style checks pass.
       - id: typecheck
         status: planned
+        blocked_on: specialization_record.stack_selection.status == complete
+        command_source: specialization_record.harness_application.quality_commands.typecheck.command
         done_when: Static typing or schema validation passes where applicable.
       - id: unit
         status: planned
+        blocked_on: specialization_record.stack_selection.status == complete
+        command_source: specialization_record.harness_application.quality_commands.unit.command
         done_when: Relevant automated tests pass for the changed scope.
+      - id: adr-structure
+        status: available
+        command: ruby scripts/check_adr.rb
+        done_when: A fresh `reports/adr-check.json` report is written and ADR files satisfy the required structure.
+      - id: rules-structural
+        status: available
+        command: ruby scripts/check_rules.rb
+        done_when: A fresh `reports/rules-check.json` report is written and rules metadata satisfies the required structure.
+      - id: oracles-readiness
+        status: available
+        command: ruby scripts/check_oracles_ready.rb
+        done_when: >-
+          A fresh `reports/oracles-readiness.json` report is written and, once stack
+          selection is complete, project-specific core quality commands are present.
       - id: projection-sync
         status: available
         command: ruby scripts/check_projection_sync.rb
