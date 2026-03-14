@@ -1,0 +1,49 @@
+version: 0.1
+status: draft
+
+target:
+  vendor: anthropic-claude-code
+  surface: CLAUDE.md
+  output_path: CLAUDE.md
+
+rationale: >-
+  Use a symlinked CLAUDE.md as the first Anthropic-facing adapter because this
+  repository wants AGENTS.md to remain the canonical leaf adapter while keeping
+  equivalent repo-level instructions discoverable from Claude-facing surfaces.
+
+inputs:
+  - AGENTS.md
+  - harness/manifest.yaml
+  - harness/compatibility-matrix.yaml
+  - harness/projections/README.md
+
+mappings:
+  instructions:
+    source:
+      - AGENTS.md
+    strategy: symlink
+    notes: Resolve CLAUDE.md to AGENTS.md instead of copying instruction content.
+
+omissions:
+  - capability: hooks
+    reason: Hook definitions belong in Claude settings or runtime surfaces, not in the symlink target.
+  - capability: subagents
+    reason: No Claude-specific subagent artifacts exist in this repository.
+  - capability: approvals
+    reason: Approval behavior remains defined by kernel policy, not by the symlink itself.
+  - capability: sandbox
+    reason: Sandbox controls belong in settings or runtime surfaces.
+  - capability: traces
+    reason: Trace collection is runtime-side and currently unimplemented.
+  - capability: background_jobs
+    reason: No automation runtime exists yet.
+  - capability: review
+    reason: Review contracts remain kernel-owned artifacts.
+  - capability: oracles
+    reason: Verification packs remain kernel-owned artifacts.
+
+generation_rules:
+  - Prefer a filesystem symlink over copied content.
+  - Keep AGENTS.md as the canonical leaf adapter for shared repo instructions.
+  - Do not let CLAUDE.md diverge from AGENTS.md.
+  - Do not claim Claude-specific runtime behavior that is not represented elsewhere.
