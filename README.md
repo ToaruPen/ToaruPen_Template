@@ -21,6 +21,7 @@ rules before generating vendor-specific files.
 - `harness/oracles.yaml`: planned verification packs
 - `harness/projections/`: projection contracts for vendor-specific outputs
 - `AGENTS.md`: first emitted leaf adapter based on the OpenAI projection contract
+- `CLAUDE.md`: symlinked Anthropic-facing adapter pointing to `AGENTS.md`
 
 ## Working Principles
 
@@ -35,10 +36,11 @@ rules before generating vendor-specific files.
 - Foundation artifact drafts are in place
 - Git history is initialized and pushed
 - The first documented leaf adapter is `AGENTS.md`
+- `CLAUDE.md` is symlinked to `AGENTS.md` as a shared adapter surface
 - Other vendor adapters are not emitted yet
 
 ## Next Steps
 
 1. Expand compatibility coverage carefully
-2. Stabilize how projection specs stay aligned with emitted adapters
+2. Stabilize how projection specs stay aligned with emitted or symlinked adapters
 3. Add runtime helpers only after concrete gaps are proven

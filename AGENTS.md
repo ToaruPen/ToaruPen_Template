@@ -9,8 +9,8 @@ adapters.
 
 ## What Is Authoritative
 
-This `AGENTS.md` is a leaf adapter for OpenAI-style repo instructions. It is not
-the primary source of truth.
+This file is a shared leaf adapter for repo-level instructions. Kernel-owned
+artifacts remain the primary source of truth.
 
 Start with these files:
 

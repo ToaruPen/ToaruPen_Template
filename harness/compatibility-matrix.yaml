@@ -6,6 +6,9 @@ status_semantics:
   native: Documented first-class or analogous surface exists for this vendor.
   emulated: Repo-side projection or helper would be required.
   unsupported: Reviewed and not currently represented in the checked sources.
+matrix_scope: >-
+  This matrix describes reviewed vendor capability surfaces. It does not imply
+  that this repository already emits or implements every corresponding adapter.
 missing_policy: >-
   Missing capability entries are not yet reviewed and must not be treated as
   unsupported.
