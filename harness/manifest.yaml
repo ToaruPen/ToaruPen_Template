@@ -43,13 +43,52 @@ defaults:
   shared_leaf_adapter: AGENTS.md
   baseline_oracle_pack: core
 
+specialization_record:
+  summary: >-
+    Committed home for project intake, stack selection, and template-level
+    specialization decisions.
+  intake:
+    status: pending
+    target_project:
+      name: TBD
+      summary: TBD
+      domain: TBD
+      users: []
+      constraints: []
+      integrations: []
+      delivery_shape: TBD
+  research:
+    status: pending
+    questions: []
+    findings: []
+    sources: []
+  stack_selection:
+    status: pending
+    decision: TBD
+    rationale: TBD
+    selected:
+      runtime: TBD
+      framework: TBD
+      data_layer: TBD
+      deployment_target: TBD
+      tooling: []
+    alternatives_considered: []
+  harness_application:
+    status: pending
+    artifacts_to_specialize:
+      - harness/capability-profile.yaml
+      - harness/oracles.yaml
+      - harness/projections/
+    notes: []
+
 template_workflow:
   summary: >-
     Apply the harness after understanding the target project rather than before.
   steps:
-    - Understand the project's domain, users, constraints, and delivery shape.
-    - Research candidate stacks and select one that fits the project.
-    - Adapt kernel-owned workflow artifacts to that stack and delivery model.
+    - Capture the target project's domain, users, constraints, and delivery shape in `specialization_record.intake`.
+    - Record research questions and findings in `specialization_record.research`.
+    - Record stack selection in `specialization_record.stack_selection` before changing workflow artifacts.
+    - Adapt kernel-owned workflow artifacts after the manifest's specialization record is coherent.
     - Emit vendor-facing adapters only after the kernel side is coherent.
 
 rollout:
