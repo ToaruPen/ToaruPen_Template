@@ -10,6 +10,7 @@ repository:
 source_of_truth:
   workflow:
     - DESIGN.md
+    - docs/adr/
     - harness/manifest.yaml
     - harness/capability-profile.yaml
     - harness/context-index.yaml
@@ -28,10 +29,12 @@ source_of_truth:
 current_scope:
   includes:
     - Template-level project intake framing
+    - ADR scaffolding
     - Kernel vocabulary
     - Partial vendor compatibility matrix
     - Context and review scaffolding
     - Policy, rule, and oracle scaffolding
+    - Project-specific code quality readiness checks
     - Initial projection contracts for OpenAI AGENTS.md and Anthropic CLAUDE.md
   excludes:
     - Runtime wrapper implementation
@@ -47,6 +50,9 @@ specialization_record:
   summary: >-
     Committed home for project intake, stack selection, and template-level
     specialization decisions.
+  decision_log_boundary: >-
+    Use this section for current specialization state. Use `docs/adr/` for durable
+    architectural and policy decisions when ADR triggers apply.
   example_ref: harness/examples/manifest-specialization.example.yaml
   intake:
     status: pending
@@ -80,6 +86,23 @@ specialization_record:
       projections_required: []
   harness_application:
     status: pending
+    quality_commands:
+      format:
+        status: pending
+        command: TBD
+        notes: []
+      lint:
+        status: pending
+        command: TBD
+        notes: []
+      typecheck:
+        status: pending
+        command: TBD
+        notes: []
+      unit:
+        status: pending
+        command: TBD
+        notes: []
     artifacts_to_specialize:
       - artifact: harness/capability-profile.yaml
         driven_by: stack_selection.harness_artifacts.capability_activations
@@ -108,7 +131,7 @@ specialization_record:
         complete_when: selected fields are non-TBD and alternatives_considered is non-empty.
       harness_application:
         starts_when: stack_selection.status == complete.
-        complete_when: Every artifacts_to_specialize entry has status == complete.
+        complete_when: Every quality_commands entry and artifacts_to_specialize entry has status == complete.
 
 template_workflow:
   summary: >-
@@ -124,6 +147,7 @@ rollout:
   current_step: foundation-template-and-harness-scaffolding
   next_steps:
     - Strengthen project-intake and stack-selection guidance for template users.
+    - Replace planned core oracle commands after stack selection is complete.
     - Expand compatibility matrix coverage carefully.
     - Keep generated leaf adapters aligned with their projection specs.
     - Use symlinked adapters only where source-of-truth boundaries stay clear.

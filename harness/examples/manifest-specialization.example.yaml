@@ -66,6 +66,27 @@ specialization_record:
         - harness/projections/anthropic-claude.yaml
   harness_application:
     status: in_progress
+    quality_commands:
+      format:
+        status: complete
+        command: pnpm format:check
+        notes:
+          - Uses the project formatter in check mode.
+      lint:
+        status: complete
+        command: pnpm lint
+        notes:
+          - Runs the primary lint target for the selected web stack.
+      typecheck:
+        status: complete
+        command: pnpm typecheck
+        notes:
+          - Verifies the TypeScript project before adapter emission.
+      unit:
+        status: in_progress
+        command: pnpm test -- --runInBand
+        notes:
+          - Example command assumes a serial test run during early specialization.
     artifacts_to_specialize:
       - artifact: harness/capability-profile.yaml
         driven_by: stack_selection.harness_artifacts.capability_activations
