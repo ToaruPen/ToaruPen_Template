@@ -1,11 +1,15 @@
-# Harness Kernel Template
+# Development Harness Template
 
-This repository is building a vendor-agnostic `Harness Kernel` for coding-agent
-workflows.
+This repository is a reusable template for starting new software projects.
+
+It includes a vendor-agnostic `Harness Kernel` for coding-agent workflows, but
+the repository itself is not only a kernel sandbox. The intent is to understand
+the target project first, research the domain and constraints, choose an
+appropriate stack, and then adapt the harness to that concrete project.
 
 The current goal is not to ship a finished framework. It is to establish a
-careful source of truth for instructions, policy, verification, and projection
-rules before generating vendor-specific files.
+careful template-owned source of truth for workflow instructions, policy,
+verification, projection rules, and project-intake guidance.
 
 ## Current Contents
 
@@ -29,11 +33,20 @@ rules before generating vendor-specific files.
 
 ## Working Principles
 
-- Kernel artifacts are the workflow source of truth
+- Start with the target project's goals, domain, constraints, and expected workflows
+- Let stack selection follow project understanding rather than precommitting too early
+- Kernel artifacts are the source of truth for the template's workflow scaffolding
 - Vendor files are projections, not primary authorities
 - Static context should stay short and pointer-first
 - Verification should be defined explicitly, not implied by prompts
 - Missing compatibility entries are unreviewed, not automatically unsupported
+
+## Template Workflow
+
+1. Understand the project to be built: domain, users, constraints, integrations, and delivery shape
+2. Research and select the stack that fits that project rather than forcing a default stack
+3. Adapt the kernel artifacts in `harness/` to the chosen stack and workflow
+4. Emit or symlink the vendor-facing adapters only after the kernel side is clear
 
 ## Current Status
 
@@ -41,10 +54,11 @@ rules before generating vendor-specific files.
 - Git history is initialized and pushed
 - The first documented leaf adapter is `AGENTS.md`
 - `CLAUDE.md` is symlinked to `AGENTS.md` as a shared adapter surface
+- The template still needs clearer project-intake and stack-selection guidance
 - Other vendor adapters are not emitted yet
 
 ## Next Steps
 
-1. Expand compatibility coverage carefully
-2. Run `scripts/check_projection_sync.rb` and inspect `reports/projection-sync.json` for realization results and input changes
-3. Run `scripts/check_compatibility_matrix.rb` and inspect `reports/compatibility-matrix.json` for reviewed-cell coverage
+1. Strengthen the template's project-intake and stack-selection workflow
+2. Expand compatibility coverage carefully
+3. Run the runtime report scripts when projection or matrix state changes

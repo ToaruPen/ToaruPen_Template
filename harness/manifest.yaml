@@ -3,8 +3,8 @@ status: draft
 repository:
   name: template
   summary: >-
-    Vendor-agnostic Harness Kernel foundation for coding-agent workflows across
-    multiple development domains.
+    Reusable development template with a vendor-agnostic Harness Kernel for
+    adapting coding-agent workflows to future project domains and stacks.
   phase: foundation
 
 source_of_truth:
@@ -27,6 +27,7 @@ source_of_truth:
 
 current_scope:
   includes:
+    - Template-level project intake framing
     - Kernel vocabulary
     - Partial vendor compatibility matrix
     - Context and review scaffolding
@@ -42,9 +43,19 @@ defaults:
   shared_leaf_adapter: AGENTS.md
   baseline_oracle_pack: core
 
+template_workflow:
+  summary: >-
+    Apply the harness after understanding the target project rather than before.
+  steps:
+    - Understand the project's domain, users, constraints, and delivery shape.
+    - Research candidate stacks and select one that fits the project.
+    - Adapt kernel-owned workflow artifacts to that stack and delivery model.
+    - Emit vendor-facing adapters only after the kernel side is coherent.
+
 rollout:
-  current_step: foundation-docs-and-scaffolding
+  current_step: foundation-template-and-harness-scaffolding
   next_steps:
+    - Strengthen project-intake and stack-selection guidance for template users.
     - Expand compatibility matrix coverage carefully.
     - Keep generated leaf adapters aligned with their projection specs.
     - Use symlinked adapters only where source-of-truth boundaries stay clear.
