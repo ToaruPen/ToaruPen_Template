@@ -23,7 +23,9 @@ rules before generating vendor-specific files.
 - `AGENTS.md`: first emitted leaf adapter based on the OpenAI projection contract
 - `CLAUDE.md`: symlinked Anthropic-facing adapter pointing to `AGENTS.md`
 - `scripts/check_projection_sync.rb`: realization checks for emitted and symlinked adapters
+- `scripts/check_compatibility_matrix.rb`: reviewed-cell coverage summary for the compatibility matrix
 - `reports/projection-sync.json`: latest runtime change report for projection inputs and realization checks
+- `reports/compatibility-matrix.json`: latest runtime coverage report for the compatibility matrix
 
 ## Working Principles
 
@@ -45,4 +47,4 @@ rules before generating vendor-specific files.
 
 1. Expand compatibility coverage carefully
 2. Run `scripts/check_projection_sync.rb` and inspect `reports/projection-sync.json` for realization results and input changes
-3. Add runtime helpers only after concrete gaps are proven
+3. Run `scripts/check_compatibility_matrix.rb` and inspect `reports/compatibility-matrix.json` for reviewed-cell coverage
