@@ -50,6 +50,10 @@ durable_sources:
     role: Verification script for emitted and symlinked adapter alignment.
     status: active
 
+  - path: scripts/check_compatibility_matrix.rb
+    role: Verification script for compatibility matrix coverage summaries.
+    status: active
+
 lookup_order:
   - Start with `README.md` for repository intent and current status.
   - Read `DESIGN.md` for deeper rationale and rollout sequencing.
@@ -65,6 +69,11 @@ runtime_artifacts:
     role: Latest runtime report for projection realization checks and input hash snapshots.
     status: generated
     usage: Inspect after running `scripts/check_projection_sync.rb`; do not treat as authoritative source.
+
+  - path: reports/compatibility-matrix.json
+    role: Latest runtime report for reviewed-cell coverage and per-vendor matrix gaps.
+    status: generated
+    usage: Inspect after running `scripts/check_compatibility_matrix.rb`; do not treat as authoritative source.
 
 notes:
   - Missing entries are absent, not implicitly unsupported.

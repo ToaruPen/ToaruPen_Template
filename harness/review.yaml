@@ -20,13 +20,16 @@ review_inputs:
     - AGENTS.md
     - CLAUDE.md
     - scripts/check_projection_sync.rb
+    - scripts/check_compatibility_matrix.rb
     - reports/projection-sync.json
+    - reports/compatibility-matrix.json
 
 review_goals:
   - Preserve kernel artifacts as the workflow source of truth.
   - Keep vendor-facing files pointer-first and shorter than their source artifacts.
   - Keep symlinked adapters aligned with their canonical leaf adapter.
   - Keep runtime reports separate from kernel-owned source artifacts.
+  - Keep matrix coverage summaries informative without treating them as support guarantees.
   - Avoid claiming vendor support beyond reviewed matrix entries.
   - Avoid implying runtime enforcement that the repo does not implement.
   - Keep verification expectations anchored in `harness/oracles.yaml`.

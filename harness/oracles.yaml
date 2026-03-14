@@ -34,6 +34,12 @@ packs:
           Emitted files and symlink targets satisfy the realization checks defined
           in projection specs, and a fresh `reports/projection-sync.json` change
           report is written.
+      - id: compatibility-matrix-coverage
+        status: available
+        command: ruby scripts/check_compatibility_matrix.rb
+        done_when: >-
+          A fresh `reports/compatibility-matrix.json` report is written with current
+          reviewed-cell coverage and per-vendor missing capability lists.
 
   - id: library
     purpose: Verify public API behavior and consumer-facing compatibility.
