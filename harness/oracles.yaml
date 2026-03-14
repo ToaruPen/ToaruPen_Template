@@ -30,7 +30,10 @@ packs:
       - id: projection-sync
         status: available
         command: ruby scripts/check_projection_sync.rb
-        done_when: Emitted files and symlink targets satisfy the realization checks defined in projection specs.
+        done_when: >-
+          Emitted files and symlink targets satisfy the realization checks defined
+          in projection specs, and a fresh `reports/projection-sync.json` change
+          report is written.
 
   - id: library
     purpose: Verify public API behavior and consumer-facing compatibility.

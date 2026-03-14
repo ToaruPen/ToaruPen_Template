@@ -60,6 +60,12 @@ lookup_order:
   - Treat `AGENTS.md` as the canonical shared leaf adapter when compatible symlinks are in use.
   - Run `scripts/check_projection_sync.rb` after changing projection specs or adapter files.
 
+runtime_artifacts:
+  - path: reports/projection-sync.json
+    role: Latest runtime report for projection realization checks and input hash snapshots.
+    status: generated
+    usage: Inspect after running `scripts/check_projection_sync.rb`; do not treat as authoritative source.
+
 notes:
   - Missing entries are absent, not implicitly unsupported.
   - Vendor-facing files should reference these sources instead of duplicating them.
