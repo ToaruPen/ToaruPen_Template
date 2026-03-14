@@ -29,6 +29,7 @@ this file aligned with it.
 
 - Treat this repository as a template to be specialized for a future project, not as a finished product by itself.
 - Record the target project's intake and stack selection in `harness/manifest.yaml` before overcommitting to generated adapters or runtime helpers.
+- When specializing against an existing project, inspect the existing codebase before adding runtime helpers, hooks, traces, or CI wiring.
 - Keep repo instructions pointer-first; do not turn this file into a long handbook.
 - Treat vendor-facing files as projections, not primary authorities.
 - Treat missing compatibility entries as unreviewed, not automatically unsupported.

@@ -43,6 +43,7 @@ verification, projection rules, and project-intake guidance.
 
 - Start with the target project's goals, domain, constraints, and expected workflows
 - Let stack selection follow project understanding rather than precommitting too early
+- Introduce project-specific runtime elements only after discussion and investigation of the target project or existing codebase
 - Kernel artifacts are the source of truth for the template's workflow scaffolding
 - Vendor files are projections, not primary authorities
 - Static context should stay short and pointer-first
