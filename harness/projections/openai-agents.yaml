@@ -12,9 +12,12 @@ rationale: >-
   low-risk place to prove projection rules before generating more adapters.
 
 inputs:
+  - README.md
   - harness/manifest.yaml
   - harness/capability-profile.yaml
+  - harness/context-index.yaml
   - harness/policy.yaml
+  - harness/review.yaml
   - harness/compatibility-matrix.yaml
   - DESIGN.md
 

@@ -282,12 +282,14 @@ ADR は product specification の正本にしない。
 3. `harness/policy.yaml` / `harness/rules.yaml` / `harness/oracles.yaml` の雛形
 4. `harness/manifest.yaml` と `harness/capability-profile.yaml`
 5. `harness/projections/openai-agents.yaml` と projection 規約
+6. `harness/context-index.yaml` と `harness/review.yaml`
+7. 最初の `AGENTS.md` leaf adapter
 
 次の実作業は、以下の順で進める。
 
 1. `harness/compatibility-matrix.yaml` の coverage を広げる
-2. projection spec から生成物へ落とす手順を定義する
-3. `AGENTS.md` のような最初の leaf adapter を実際に生成する
+2. projection spec と leaf adapter の同期方法を安定化する
+3. `AGENTS.md` 以外の leaf adapter 候補を 1 つずつ追加する
 
 引き続き vendor adapter はまだ増やしすぎない。
 adapter は matrix と policy の裏付けができてから着手する。
