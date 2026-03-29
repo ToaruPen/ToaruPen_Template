@@ -59,7 +59,11 @@ def push_files() -> list[str]:
     for line in raw:
         parts = line.split()
         if len(parts) != 4:
-            continue
+            print(
+                f"BLOCKED: malformed pre-push input line: {line!r}",
+                file=sys.stderr,
+            )
+            raise SystemExit(1)
         _local_ref, local_sha, _remote_ref, remote_sha = parts
         if local_sha == zero:
             continue
@@ -105,27 +109,43 @@ def parse_decision_file(path: Path) -> DecisionEntry | None:
     if not path.exists():
         return None
 
-    required = False
+    required: bool | None = None
     rationale = ""
     files: list[str] = []
     adr_paths: list[str] = []
+    saw_files = False
+    saw_adr_paths = False
     current_list: list[str] | None = None
     for raw_line in path.read_text(encoding="utf-8").splitlines():
         line = raw_line.rstrip()
         if line.startswith("adr_required:"):
-            required = line.split(":", 1)[1].strip() == "true"
+            value = line.split(":", 1)[1].strip().lower()
+            if value not in {"true", "false"}:
+                return None
+            required = value == "true"
             current_list = None
         elif line.startswith("rationale:"):
             rationale = line.split(":", 1)[1].strip()
             current_list = None
         elif line == "files:":
+            saw_files = True
             current_list = files
+        elif line == "files: []":
+            saw_files = True
+            current_list = None
         elif line == "adr_paths:":
+            saw_adr_paths = True
             current_list = adr_paths
+        elif line == "adr_paths: []":
+            saw_adr_paths = True
+            current_list = None
         elif line.startswith("  - ") and current_list is not None:
             current_list.append(line[4:].strip())
         else:
             current_list = None
+
+    if required is None or not saw_files or not saw_adr_paths:
+        return None
     return DecisionEntry(
         required=required, rationale=rationale, files=files, adr_paths=adr_paths
     )
@@ -205,7 +225,7 @@ def main() -> None:
     decision = parse_decision_file(decision_path)
     if decision is None:
         print(
-            f"BLOCKED: ADR decision file is missing: {decision_path.relative_to(ROOT)}",
+            f"BLOCKED: ADR decision file is missing or malformed: {decision_path.relative_to(ROOT)}",
             file=sys.stderr,
         )
         raise SystemExit(1)
