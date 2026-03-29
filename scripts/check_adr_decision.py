@@ -54,9 +54,23 @@ def push_files() -> list[str]:
         if local_sha == zero:
             continue
         if remote_sha == zero:
-            diff = git_lines("diff-tree", "--no-commit-id", "--name-only", "-r", "--root", local_sha)
+            # New remote ref: collect changed files across all unpublished commits
+            diff = git_lines(
+                "log",
+                "--name-only",
+                "--pretty=format:",
+                "--diff-filter=ACMR",
+                local_sha,
+                "--not",
+                "--remotes",
+            )
         else:
-            diff = git_lines("diff", "--name-only", f"{remote_sha}..{local_sha}", "--diff-filter=ACMR")
+            diff = git_lines(
+                "diff",
+                "--name-only",
+                f"{remote_sha}..{local_sha}",
+                "--diff-filter=ACMR",
+            )
         changed.update(diff)
     return sorted(changed)
 
@@ -102,7 +116,9 @@ def parse_decision_file(path: Path) -> DecisionEntry | None:
             current_list.append(line[4:].strip())
         else:
             current_list = None
-    return DecisionEntry(required=required, rationale=rationale, files=files, adr_paths=adr_paths)
+    return DecisionEntry(
+        required=required, rationale=rationale, files=files, adr_paths=adr_paths
+    )
 
 
 def latest_decision_path() -> Path | None:
@@ -150,7 +166,9 @@ def main() -> None:
         )
         raise SystemExit(1)
 
-    decision_artifacts = sorted(path for path in changed if path.startswith("docs/adr/decisions/"))
+    decision_artifacts = sorted(
+        path for path in changed if path.startswith("docs/adr/decisions/")
+    )
     if not decision_artifacts:
         print(
             "BLOCKED: ADR-triggering change requires a docs/adr/decisions/*.md record",
@@ -160,7 +178,10 @@ def main() -> None:
 
     decision_path = latest_decision_path()
     if decision_path is None:
-        print("BLOCKED: no ADR decision entry found in docs/adr/decision-log.md", file=sys.stderr)
+        print(
+            "BLOCKED: no ADR decision entry found in docs/adr/decision-log.md",
+            file=sys.stderr,
+        )
         raise SystemExit(1)
 
     decision_relative_path = decision_path.relative_to(ROOT).as_posix()
@@ -173,7 +194,10 @@ def main() -> None:
 
     decision = parse_decision_file(decision_path)
     if decision is None:
-        print(f"BLOCKED: ADR decision file is missing: {decision_path.relative_to(ROOT)}", file=sys.stderr)
+        print(
+            f"BLOCKED: ADR decision file is missing: {decision_path.relative_to(ROOT)}",
+            file=sys.stderr,
+        )
         raise SystemExit(1)
 
     missing = [path for path in triggered if path not in decision.files]
@@ -191,7 +215,10 @@ def main() -> None:
     if decision.required:
         adr_changes = actual_adr_changes(changed)
         if not adr_changes:
-            print("BLOCKED: adr_required=true but no ADR file change is staged", file=sys.stderr)
+            print(
+                "BLOCKED: adr_required=true but no ADR file change is staged",
+                file=sys.stderr,
+            )
             raise SystemExit(1)
         if sorted(decision.adr_paths) != adr_changes:
             print(

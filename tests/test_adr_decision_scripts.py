@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import sys
-from contextlib import ExitStack, redirect_stderr
+from contextlib import redirect_stderr
 from datetime import UTC, datetime
 from importlib.util import module_from_spec, spec_from_file_location
 from io import StringIO
@@ -323,6 +323,37 @@ def test_check_blocks_when_adr_paths_mismatch() -> None:
 
         assert code == 1
         assert "adr_paths" in stderr
+
+
+def test_check_accepts_push_mode_for_new_branch() -> None:
+    """Regression: --mode push with remote_sha=000... (new branch) must aggregate all commits."""
+    with TemporaryDirectory() as temp_dir:
+        tmp_root = Path(temp_dir)
+        module = load_script_module("check_push_new", "scripts/check_adr_decision.py")
+        configure_adr_module(module, tmp_root)
+        write_decision_fixture(
+            tmp_root,
+            decision_filename="2026-03-29-push-test.md",
+            change="Push test",
+            rationale="Validate new-branch push path",
+            files=["scripts/create_adr_decision.py"],
+        )
+
+        zero = "0" * 40
+        fake_local_sha = "a" * 40
+        stdin_line = f"refs/heads/feat/test {fake_local_sha} refs/heads/feat/test {zero}\n"
+
+        def fake_push_files() -> list[str]:
+            return [
+                "scripts/create_adr_decision.py",
+                "docs/adr/decision-log.md",
+                "docs/adr/decisions/2026-03-29-push-test.md",
+            ]
+
+        with patch.object(module, "push_files", side_effect=fake_push_files):
+            stdout, _ = run_main(module, ["check_adr_decision.py", "--mode", "push"])
+
+        assert "ADR decision gate passed" in stdout
 
 
 def test_git_hooks_use_generic_adr_gate_messages() -> None:
