@@ -49,6 +49,12 @@ def staged_files() -> list[str]:
 def push_files() -> list[str]:
     zero = "0" * 40
     raw = sys.stdin.read().strip().splitlines()
+    if len(raw) > 1:
+        print(
+            "BLOCKED: multi-ref push is not supported by ADR gate; push one ref at a time",
+            file=sys.stderr,
+        )
+        raise SystemExit(1)
     changed: set[str] = set()
     for line in raw:
         parts = line.split()
@@ -220,13 +226,13 @@ def main() -> None:
         adr_changes = actual_adr_changes(changed)
         if not adr_changes:
             print(
-                "BLOCKED: adr_required=true but no ADR file change is staged",
+                "BLOCKED: adr_required=true but no ADR file changes detected",
                 file=sys.stderr,
             )
             raise SystemExit(1)
         if sorted(decision.adr_paths) != adr_changes:
             print(
-                "BLOCKED: adr_required=true but latest decision entry adr_paths do not match staged ADR files",
+                "BLOCKED: adr_required=true but latest decision entry adr_paths do not match changed ADR files",
                 file=sys.stderr,
             )
             raise SystemExit(1)
