@@ -28,13 +28,17 @@ class DecisionEntry:
 
 
 def git_lines(*args: str) -> list[str]:
-    completed = subprocess.run(
-        ["git", *args],
-        cwd=ROOT,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
+    try:
+        completed = subprocess.run(
+            ["git", *args],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except subprocess.CalledProcessError as e:
+        print(f"BLOCKED: git command failed: git {' '.join(args)}", file=sys.stderr)
+        raise SystemExit(1) from e
     return [line.strip() for line in completed.stdout.splitlines() if line.strip()]
 
 
