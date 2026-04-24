@@ -43,4 +43,8 @@ this file aligned with it.
 - `harness/manifest.yaml` is the committed home for project intake and stack-selection records.
 - `docs/adr/` holds the current ADR template and committed decision records.
 - `AGENTS.md` is currently the first documented leaf adapter.
-- No build, test, or runtime wrapper commands are defined yet; verification intent lives in `harness/oracles.yaml`.
+- Verification wrappers are defined in `Makefile` (`make check` runs the
+  full lint/format/typecheck/test/dead/docs sweep). The canonical oracle
+  intent lives in `harness/oracles.yaml`.
+- Python toolchain is managed via `pyproject.toml` and `uv`. Validators
+  under `scripts/` are invoked as `uv run python scripts/check_*.py`.
