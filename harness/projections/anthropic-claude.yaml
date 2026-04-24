@@ -21,7 +21,7 @@ realization:
   mode: symlink
   canonical: false
   canonical_source: AGENTS.md
-  sync_check: scripts/check_projection_sync.rb
+  sync_check: scripts/check_projection_sync.py
   notes: CLAUDE.md should resolve to the canonical AGENTS.md leaf adapter.
 
 mappings:

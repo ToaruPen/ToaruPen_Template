@@ -20,11 +20,11 @@ review_inputs:
     - harness/projections/anthropic-claude.yaml
     - AGENTS.md
     - CLAUDE.md
-    - scripts/check_adr.rb
-    - scripts/check_rules.rb
-    - scripts/check_oracles_ready.rb
-    - scripts/check_projection_sync.rb
-    - scripts/check_compatibility_matrix.rb
+    - scripts/check_adr.py
+    - scripts/check_rules.py
+    - scripts/check_oracles_ready.py
+    - scripts/check_projection_sync.py
+    - scripts/check_compatibility_matrix.py
     - reports/adr-check.json
     - reports/rules-check.json
     - reports/oracles-readiness.json

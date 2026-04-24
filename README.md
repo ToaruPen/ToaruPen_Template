@@ -28,11 +28,11 @@ verification, projection rules, and project-intake guidance.
 - `harness/examples/manifest-specialization.example.yaml`: filled-in reference example for `specialization_record`
 - `AGENTS.md`: first emitted leaf adapter based on the OpenAI projection contract
 - `CLAUDE.md`: symlinked Anthropic-facing adapter pointing to `AGENTS.md`
-- `scripts/check_adr.rb`: ADR structure and presence validation
-- `scripts/check_rules.rb`: rules metadata validation
-- `scripts/check_oracles_ready.rb`: project-specific quality command readiness validation
-- `scripts/check_projection_sync.rb`: realization checks for emitted and symlinked adapters
-- `scripts/check_compatibility_matrix.rb`: reviewed-cell coverage summary for the compatibility matrix
+- `scripts/check_adr.py`: ADR structure and presence validation
+- `scripts/check_rules.py`: rules metadata validation
+- `scripts/check_oracles_ready.py`: project-specific quality command readiness validation
+- `scripts/check_projection_sync.py`: realization checks for emitted and symlinked adapters
+- `scripts/check_compatibility_matrix.py`: reviewed-cell coverage summary for the compatibility matrix
 - `reports/adr-check.json`: latest runtime report for ADR structure validation
 - `reports/rules-check.json`: latest runtime report for rules metadata validation
 - `reports/oracles-readiness.json`: latest runtime report for core quality command readiness

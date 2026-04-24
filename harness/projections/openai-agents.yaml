@@ -24,7 +24,7 @@ inputs:
 realization:
   mode: emitted
   canonical: true
-  sync_check: scripts/check_projection_sync.rb
+  sync_check: scripts/check_projection_sync.py
   notes: AGENTS.md is committed directly and should remain a regular file.
 
 mappings:
