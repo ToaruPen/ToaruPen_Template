@@ -160,6 +160,39 @@ def test_check_projection_sync_reports_validation_failures(tmp_path: Path) -> No
     assert 'unsupported realization.mode "copied"' in completed.stderr
 
 
+def test_check_projection_sync_reports_missing_canonical_source_without_crashing(
+    tmp_path: Path,
+) -> None:
+    script_path = copy_script(tmp_path)
+    (tmp_path / "wrong.md").write_text("wrong\n", encoding="utf-8")
+    (tmp_path / "bad-link.md").symlink_to("wrong.md")
+    write_projection(
+        tmp_path,
+        "01-missing-canonical-source.yaml",
+        "target:\n"
+        "  output_path: bad-link.md\n"
+        "realization:\n"
+        "  mode: symlink\n"
+        "  canonical_source: missing.md\n",
+    )
+    write_projection(
+        tmp_path,
+        "02-unrelated-error.yaml",
+        "target: {}\n"
+        "realization:\n"
+        "  mode: emitted\n",
+    )
+
+    completed = run_script(script_path, tmp_path)
+
+    assert completed.returncode == 1
+    assert (
+        "realization.canonical_source missing.md does not exist" in completed.stderr
+    )
+    assert "missing target.output_path" in completed.stderr
+    assert "Traceback" not in completed.stderr
+
+
 def test_check_projection_sync_matches_committed_report_modulo_timestamps() -> None:
     script_path = ROOT / "scripts" / "check_projection_sync.py"
     committed_report_path = ROOT / "reports" / "projection-sync.json"

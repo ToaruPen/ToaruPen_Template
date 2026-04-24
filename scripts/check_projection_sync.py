@@ -228,7 +228,15 @@ def symlink_output_check(
         )
         return None
 
-    expected = (ROOT / str(canonical_source)).resolve(strict=True)
+    canonical_source_path = ROOT / str(canonical_source)
+    if not canonical_source_path.exists():
+        errors.append(
+            f"{context.projection_path}: realization.canonical_source "
+            f"{canonical_source} does not exist",
+        )
+        return None
+
+    expected = canonical_source_path.resolve()
     actual = context.output.resolve(strict=True)
     if actual != expected:
         errors.append(
