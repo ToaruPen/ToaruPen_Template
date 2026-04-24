@@ -44,6 +44,9 @@ def normalized_report(path: Path) -> dict[str, object]:
     for projection in cast("list[dict[str, object]]", report_payload["projections"]):
         projection["checked_at"] = "<checked_at>"
         projection["changes_since_last_report"] = "<changes_since_last_report>"
+        realization = cast("dict[str, object]", projection["realization"])
+        if "sync_check" in realization:
+            realization["sync_check"] = "<sync_check>"
         for input_metadata in cast("dict[str, dict[str, object]]", projection["inputs"]).values():
             input_metadata["sha256"] = "<sha256>"
         output_metadata = cast("dict[str, object]", projection["output"])
@@ -178,17 +181,13 @@ def test_check_projection_sync_reports_missing_canonical_source_without_crashing
     write_projection(
         tmp_path,
         "02-unrelated-error.yaml",
-        "target: {}\n"
-        "realization:\n"
-        "  mode: emitted\n",
+        "target: {}\nrealization:\n  mode: emitted\n",
     )
 
     completed = run_script(script_path, tmp_path)
 
     assert completed.returncode == 1
-    assert (
-        "realization.canonical_source missing.md does not exist" in completed.stderr
-    )
+    assert "realization.canonical_source missing.md does not exist" in completed.stderr
     assert "missing target.output_path" in completed.stderr
     assert "Traceback" not in completed.stderr
 
