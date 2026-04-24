@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parent.parent
 RULES_PATH = ROOT / "harness" / "rules.yaml"
 REPORT_PATH = ROOT / "reports" / "rules-check.json"
 REQUIRED_KEYS = ("id", "status", "scope", "rationale", "fix_hint", "enforcement_layer", "adr")
-TOOL_NAME = "scripts/check_rules.rb"
+TOOL_NAME = "scripts/check_rules.py"
 
 
 @dataclass(frozen=True)

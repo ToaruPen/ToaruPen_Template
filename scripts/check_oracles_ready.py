@@ -20,7 +20,7 @@ ORACLES_PATH = ROOT / "harness" / "oracles.yaml"
 REPORT_PATH = ROOT / "reports" / "oracles-readiness.json"
 CORE_CHECKS = ("format", "lint", "typecheck", "unit")
 EMPTY_ARRAY_PATTERN = re.compile(r'^(?P<indent> *)"(?P<key>[^"]+)": \[\]$', re.MULTILINE)
-TOOL_NAME = "scripts/check_oracles_ready.rb"
+TOOL_NAME = "scripts/check_oracles_ready.py"
 
 
 @dataclass(frozen=True)

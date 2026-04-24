@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PROJECTIONS_DIR = ROOT / "harness" / "projections"
 DEFAULT_REPORT_PATH = ROOT / "reports" / "projection-sync.json"
 EMPTY_ARRAY_PATTERN = re.compile(r'^(?P<indent> *)"(?P<key>[^"]+)": \[\]$', re.MULTILINE)
-TOOL_NAME = "scripts/check_projection_sync.rb"
+TOOL_NAME = "scripts/check_projection_sync.py"
 
 
 @dataclass(frozen=True)

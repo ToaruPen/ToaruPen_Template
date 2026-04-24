@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-14T04:05:58Z",
-  "tool": "scripts/check_compatibility_matrix.rb",
+  "generated_at": "2026-04-24T22:35:16Z",
+  "tool": "scripts/check_compatibility_matrix.py",
   "matrix": "harness/compatibility-matrix.yaml",
   "matrix_status": "draft",
   "matrix_coverage": "partial",

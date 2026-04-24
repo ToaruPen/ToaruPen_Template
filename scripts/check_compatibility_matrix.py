@@ -17,7 +17,7 @@ MATRIX_PATH = ROOT / "harness" / "compatibility-matrix.yaml"
 REPORT_PATH = ROOT / "reports" / "compatibility-matrix.json"
 PERCENT_SCALE = 100
 PERCENT_DIGITS = 2
-TOOL_NAME = "scripts/check_compatibility_matrix.rb"
+TOOL_NAME = "scripts/check_compatibility_matrix.py"
 
 
 @dataclass(frozen=True)

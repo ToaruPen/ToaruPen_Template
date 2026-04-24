@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-14T04:05:58Z",
-  "tool": "scripts/check_projection_sync.rb",
+  "generated_at": "2026-04-24T22:35:16Z",
+  "tool": "scripts/check_projection_sync.py",
   "projections": [
     {
       "projection": "harness/projections/anthropic-claude.yaml",

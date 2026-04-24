@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-14T06:19:11Z",
-  "tool": "scripts/check_oracles_ready.rb",
+  "generated_at": "2026-04-24T22:35:16Z",
+  "tool": "scripts/check_oracles_ready.py",
   "manifest": "harness/manifest.yaml",
   "oracles": "harness/oracles.yaml",
   "stack_selection_status": "pending",

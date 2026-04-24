@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-14T04:11:44Z",
-  "tool": "scripts/check_rules.rb",
+  "generated_at": "2026-04-24T22:35:15Z",
+  "tool": "scripts/check_rules.py",
   "rules_file": "harness/rules.yaml",
   "enforcement_state": "metadata only; layer assignment does not imply active hook or CI wiring.",
   "planned_enforcement_layers": [
