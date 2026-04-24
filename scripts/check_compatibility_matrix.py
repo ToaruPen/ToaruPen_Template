@@ -7,6 +7,7 @@ import json
 from collections import Counter
 from dataclasses import dataclass
 from datetime import UTC, datetime
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 from typing import cast
 
@@ -68,10 +69,17 @@ def as_mapping(value: object) -> dict[str, object]:
 
 
 def percentage(part: int, whole: int) -> float:
-    """Return Ruby-compatible coverage percentage for report values."""
+    """Return Ruby-compatible coverage percentage for report values.
+
+    Uses ROUND_HALF_UP via Decimal to mirror Ruby's `Float#round(2)`,
+    which rounds half away from zero. Python's built-in `round` would
+    apply banker's rounding and diverge for half-cent values.
+    """
     if whole == 0:
         return 0.0
-    return round((part / whole) * PERCENT_SCALE, PERCENT_DIGITS)
+    raw = Decimal(part * PERCENT_SCALE) / Decimal(whole)
+    quantized = raw.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+    return float(quantized)
 
 
 def vendor_entries(matrix: dict[str, object]) -> list[VendorEntry]:
