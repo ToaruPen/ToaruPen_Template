@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-14T04:11:43Z",
-  "tool": "scripts/check_adr.rb",
+  "generated_at": "2026-04-24T14:59:36Z",
+  "tool": "scripts/check_adr.py",
   "adr_directory": "docs/adr",
   "entries": [
     {
