@@ -37,28 +37,28 @@ packs:
         done_when: Relevant automated tests pass for the changed scope.
       - id: adr-structure
         status: available
-        command: python3 scripts/check_adr.py
+        command: uv run python scripts/check_adr.py
         done_when: A fresh `reports/adr-check.json` report is written and ADR files satisfy the required structure.
       - id: rules-structural
         status: available
-        command: python3 scripts/check_rules.py
+        command: uv run python scripts/check_rules.py
         done_when: A fresh `reports/rules-check.json` report is written and rules metadata satisfies the required structure.
       - id: oracles-readiness
         status: available
-        command: python3 scripts/check_oracles_ready.py
+        command: uv run python scripts/check_oracles_ready.py
         done_when: >-
           A fresh `reports/oracles-readiness.json` report is written and, once stack
           selection is complete, project-specific core quality commands are present.
       - id: projection-sync
         status: available
-        command: python3 scripts/check_projection_sync.py
+        command: uv run python scripts/check_projection_sync.py
         done_when: >-
           Emitted files and symlink targets satisfy the realization checks defined
           in projection specs, and a fresh `reports/projection-sync.json` change
           report is written.
       - id: compatibility-matrix-coverage
         status: available
-        command: python3 scripts/check_compatibility_matrix.py
+        command: uv run python scripts/check_compatibility_matrix.py
         done_when: >-
           A fresh `reports/compatibility-matrix.json` report is written with current
           reviewed-cell coverage and per-vendor unreviewed capability lists.

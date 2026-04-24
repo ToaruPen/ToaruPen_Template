@@ -79,34 +79,34 @@ lookup_order:
   - Consult `harness/compatibility-matrix.yaml` before claiming vendor support.
   - Consult projection specs before editing vendor-facing files.
   - Treat `AGENTS.md` as the canonical shared leaf adapter when compatible symlinks are in use.
-  - Run `python3 scripts/check_projection_sync.py` after changing projection specs or adapter files.
-  - Run `python3 scripts/check_adr.py`, `python3 scripts/check_rules.py`, and `python3 scripts/check_oracles_ready.py` when changing ADR, rules, or oracle-readiness metadata.
+  - Run `uv run python scripts/check_projection_sync.py` after changing projection specs or adapter files.
+  - Run `uv run python scripts/check_adr.py`, `uv run python scripts/check_rules.py`, and `uv run python scripts/check_oracles_ready.py` when changing ADR, rules, or oracle-readiness metadata.
 
 runtime_artifacts:
   - path: reports/projection-sync.json
     role: Latest runtime report for projection realization checks and input hash snapshots.
     status: generated
-    usage: Inspect after running `python3 scripts/check_projection_sync.py`; do not treat as authoritative source.
+    usage: Inspect after running `uv run python scripts/check_projection_sync.py`; do not treat as authoritative source.
 
   - path: reports/compatibility-matrix.json
     role: Latest runtime report for reviewed-cell coverage and per-vendor unreviewed capability lists.
     status: generated
-    usage: Inspect after running `python3 scripts/check_compatibility_matrix.py`; do not treat as authoritative source.
+    usage: Inspect after running `uv run python scripts/check_compatibility_matrix.py`; do not treat as authoritative source.
 
   - path: reports/adr-check.json
     role: Latest runtime report for ADR structure validation.
     status: generated
-    usage: Inspect after running `python3 scripts/check_adr.py`; do not treat as authoritative source.
+    usage: Inspect after running `uv run python scripts/check_adr.py`; do not treat as authoritative source.
 
   - path: reports/rules-check.json
     role: Latest runtime report for rules metadata validation.
     status: generated
-    usage: Inspect after running `python3 scripts/check_rules.py`; do not treat as authoritative source.
+    usage: Inspect after running `uv run python scripts/check_rules.py`; do not treat as authoritative source.
 
   - path: reports/oracles-readiness.json
     role: Latest runtime report for project-specific code quality command readiness.
     status: generated
-    usage: Inspect after running `python3 scripts/check_oracles_ready.py`; do not treat as authoritative source.
+    usage: Inspect after running `uv run python scripts/check_oracles_ready.py`; do not treat as authoritative source.
 
 reference_artifacts:
   - path: harness/examples/manifest-specialization.example.yaml
