@@ -1,0 +1,101 @@
+[project]
+name = "toarupen-template"
+version = "0.1.0"
+description = "Development harness template validators."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "PyYAML",
+]
+
+[dependency-groups]
+dev = [
+    "interrogate",
+    "mypy",
+    "pytest",
+    "ruff",
+    "types-PyYAML",
+    "vulture",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = [".git", "reports"]
+namespace-packages = ["tests"]
+
+[tool.ruff.lint]
+extend-select = [
+    "E",
+    "W",
+    "F",
+    "I",
+    "N",
+    "UP",
+    "B",
+    "SIM",
+    "RUF",
+    "PL",
+    "TRY",
+    "ERA",
+    "FIX",
+    "T20",
+    "S",
+    "D",
+    "ANN",
+    "C4",
+    "PIE",
+    "PT",
+    "BLE",
+    "PGH",
+    "ARG",
+    "RET",
+    "SLF",
+    "DTZ",
+    "G",
+    "TID",
+    "TCH",
+    "EM",
+    "ISC",
+    "ICN",
+    "INP",
+    "COM",
+    "Q",
+    "FBT",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "D", "ANN", "PLR2004", "SLF001"]
+"scripts/**" = ["T201"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unreachable = true
+disallow_any_explicit = true
+strict_equality = true
+no_implicit_optional = true
+extra_checks = true
+
+[tool.vulture]
+min_confidence = 80
+paths = ["scripts"]
+
+[tool.interrogate]
+fail-under = 90
+exclude = ["tests"]
+ignore-init-module = true
+ignore-magic = true
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers --strict-config"
+testpaths = ["tests"]

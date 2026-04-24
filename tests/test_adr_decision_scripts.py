@@ -2,26 +2,36 @@ from __future__ import annotations
 
 import sys
 from contextlib import redirect_stderr
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from importlib.util import module_from_spec, spec_from_file_location
 from io import StringIO
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from types import ModuleType
-from typing import cast
+from typing import TYPE_CHECKING, Protocol, cast
 from unittest.mock import patch
 
 import pytest
 
+if TYPE_CHECKING:
+    from types import ModuleType
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+class ConfigurableAdrModule(Protocol):
+    ROOT: Path
+    ADR_DIR: Path
+    DECISION_LOG: Path
+    DECISIONS_DIR: Path
 
 
 def load_script_module(name: str, relative_path: str) -> ModuleType:
     script_path = ROOT / relative_path
     spec = spec_from_file_location(name, script_path)
     if spec is None or spec.loader is None:
-        raise RuntimeError(f"Failed to load module spec for {relative_path}")
+        message = f"Failed to load module spec for {relative_path}"
+        raise RuntimeError(message)
     module = module_from_spec(spec)
     sys.modules[name] = module
     spec.loader.exec_module(module)
@@ -30,10 +40,24 @@ def load_script_module(name: str, relative_path: str) -> ModuleType:
 
 def configure_adr_module(module: ModuleType, tmp_root: Path) -> None:
     adr_dir = tmp_root / "docs" / "adr"
-    module.ROOT = tmp_root
-    module.ADR_DIR = adr_dir
-    module.DECISION_LOG = adr_dir / "decision-log.md"
-    module.DECISIONS_DIR = adr_dir / "decisions"
+    configured_module = cast("ConfigurableAdrModule", module)
+    configured_module.ROOT = tmp_root
+    configured_module.ADR_DIR = adr_dir
+    configured_module.DECISION_LOG = adr_dir / "decision-log.md"
+    configured_module.DECISIONS_DIR = adr_dir / "decisions"
+
+
+@dataclass(frozen=True)
+class DecisionFixture:
+    decision_filename: str = "2026-03-29-test-change.md"
+    change: str = "Test change"
+    rationale: str = "Test rationale"
+    adr_required: str = "false"
+    files: list[str] | None = None
+    adr_paths: list[str] | None = None
+
+
+DEFAULT_DECISION_FIXTURE = DecisionFixture()
 
 
 def decision_text(
@@ -68,30 +92,24 @@ def decision_text(
 
 def write_decision_fixture(
     tmp_root: Path,
-    *,
-    decision_filename: str = "2026-03-29-test-change.md",
-    change: str = "Test change",
-    rationale: str = "Test rationale",
-    adr_required: str = "false",
-    files: list[str] | None = None,
-    adr_paths: list[str] | None = None,
+    fixture: DecisionFixture = DEFAULT_DECISION_FIXTURE,
 ) -> None:
     decisions_dir = tmp_root / "docs" / "adr" / "decisions"
     decisions_dir.mkdir(parents=True, exist_ok=True)
-    (decisions_dir / decision_filename).write_text(
+    (decisions_dir / fixture.decision_filename).write_text(
         decision_text(
-            change=change,
-            rationale=rationale,
-            adr_required=adr_required,
-            files=files,
-            adr_paths=adr_paths,
+            change=fixture.change,
+            rationale=fixture.rationale,
+            adr_required=fixture.adr_required,
+            files=fixture.files,
+            adr_paths=fixture.adr_paths,
         ),
         encoding="utf-8",
     )
     (tmp_root / "docs" / "adr" / "decision-log.md").write_text(
         "# ADR Decision Log\n\n"
-        f"- 2026-03-29T00:00:00Z | adr_required={adr_required} | {change} | "
-        f"[details](decisions/{decision_filename})\n",
+        f"- 2026-03-29T00:00:00Z | adr_required={fixture.adr_required} | "
+        f"{fixture.change} | [details](decisions/{fixture.decision_filename})\n",
         encoding="utf-8",
     )
 
@@ -106,10 +124,13 @@ def run_main(module: ModuleType, argv: list[str]) -> tuple[str, str]:
 
 def run_and_capture_system_exit(module: ModuleType, argv: list[str]) -> tuple[int, str]:
     stderr = StringIO()
-    with patch.object(sys, "argv", argv), redirect_stderr(stderr):
-        with pytest.raises(SystemExit) as exc_info:
-            module.main()
-    return cast(int, exc_info.value.code), stderr.getvalue()
+    with (
+        patch.object(sys, "argv", argv),
+        redirect_stderr(stderr),
+        pytest.raises(SystemExit) as exc_info,
+    ):
+        module.main()
+    return cast("int", exc_info.value.code), stderr.getvalue()
 
 
 def test_create_adr_decision_uses_staged_default_and_filters_decision_artifacts() -> None:
@@ -154,7 +175,10 @@ def test_create_adr_decision_uses_staged_default_and_filters_decision_artifacts(
 def test_create_adr_decision_adds_numeric_suffix_for_collisions() -> None:
     with TemporaryDirectory() as temp_dir:
         tmp_root = Path(temp_dir)
-        module = load_script_module("create_adr_decision_collision", "scripts/create_adr_decision.py")
+        module = load_script_module(
+            "create_adr_decision_collision",
+            "scripts/create_adr_decision.py",
+        )
         configure_adr_module(module, tmp_root)
         fixed_dt = datetime(2026, 3, 29, 12, 0, 0, tzinfo=UTC)
 
@@ -213,7 +237,7 @@ def test_check_adr_decision_uses_template_trigger_configuration() -> None:
         configure_adr_module(module, tmp_root)
 
         assert module.TRIGGER_PREFIXES == ("config/", "harness/", "docs/adr/", "scripts/")
-        assert module.TRIGGER_FILES == {"pyproject.toml", "package.json"}
+        assert {"pyproject.toml", "package.json"} == module.TRIGGER_FILES
         assert module.is_trigger("config/settings.yaml")
         assert module.is_trigger("harness/manifest.yaml")
         assert module.is_trigger("scripts/create_adr_decision.py")
@@ -231,10 +255,12 @@ def test_check_adr_decision_accepts_latest_changed_decision_record() -> None:
         configure_adr_module(module, tmp_root)
         write_decision_fixture(
             tmp_root,
-            decision_filename="2026-03-29-split-log.md",
-            change="Split ADR index",
-            rationale="Keep conflict scope small",
-            files=["scripts/create_adr_decision.py"],
+            DecisionFixture(
+                decision_filename="2026-03-29-split-log.md",
+                change="Split ADR index",
+                rationale="Keep conflict scope small",
+                files=["scripts/create_adr_decision.py"],
+            ),
         )
 
         with patch.object(
@@ -256,7 +282,7 @@ def test_check_blocks_when_decision_log_not_in_staged() -> None:
         tmp_root = Path(temp_dir)
         module = load_script_module("check_no_log", "scripts/check_adr_decision.py")
         configure_adr_module(module, tmp_root)
-        write_decision_fixture(tmp_root, files=["scripts/check_adr_decision.py"])
+        write_decision_fixture(tmp_root, DecisionFixture(files=["scripts/check_adr_decision.py"]))
 
         with patch.object(
             module,
@@ -277,7 +303,7 @@ def test_check_blocks_when_trigger_files_not_covered() -> None:
         tmp_root = Path(temp_dir)
         module = load_script_module("check_uncovered", "scripts/check_adr_decision.py")
         configure_adr_module(module, tmp_root)
-        write_decision_fixture(tmp_root, files=["scripts/other.py"])
+        write_decision_fixture(tmp_root, DecisionFixture(files=["scripts/other.py"]))
 
         with patch.object(
             module,
@@ -301,12 +327,14 @@ def test_check_blocks_when_adr_paths_mismatch() -> None:
         configure_adr_module(module, tmp_root)
         write_decision_fixture(
             tmp_root,
-            decision_filename="2026-03-29-adr-mismatch.md",
-            change="ADR mismatch test",
-            rationale="Testing adr_paths validation",
-            adr_required="true",
-            files=["config/settings.yaml", "docs/adr/0099-real-adr.md"],
-            adr_paths=["docs/adr/9999-wrong.md"],
+            DecisionFixture(
+                decision_filename="2026-03-29-adr-mismatch.md",
+                change="ADR mismatch test",
+                rationale="Testing adr_paths validation",
+                adr_required="true",
+                files=["config/settings.yaml", "docs/adr/0099-real-adr.md"],
+                adr_paths=["docs/adr/9999-wrong.md"],
+            ),
         )
 
         with patch.object(
@@ -333,15 +361,13 @@ def test_check_accepts_push_mode_for_new_branch() -> None:
         configure_adr_module(module, tmp_root)
         write_decision_fixture(
             tmp_root,
-            decision_filename="2026-03-29-push-test.md",
-            change="Push test",
-            rationale="Validate new-branch push path",
-            files=["scripts/create_adr_decision.py"],
+            DecisionFixture(
+                decision_filename="2026-03-29-push-test.md",
+                change="Push test",
+                rationale="Validate new-branch push path",
+                files=["scripts/create_adr_decision.py"],
+            ),
         )
-
-        zero = "0" * 40
-        fake_local_sha = "a" * 40
-        stdin_line = f"refs/heads/feat/test {fake_local_sha} refs/heads/feat/test {zero}\n"
 
         def fake_push_files() -> list[str]:
             return [

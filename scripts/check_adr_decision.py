@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
+"""Gate ADR-triggering staged or pushed changes on an explicit decision record."""
+
 from __future__ import annotations
 
 import argparse
-from dataclasses import dataclass
-from pathlib import Path
 import re
 import subprocess
 import sys
-
+from dataclasses import dataclass
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+GIT_BINARY = Path("/usr/bin/git")
 ADR_DIR = ROOT / "docs" / "adr"
 DECISION_LOG = ADR_DIR / "decision-log.md"
 DECISIONS_DIR = ADR_DIR / "decisions"
@@ -17,10 +19,13 @@ INDEX_LINK_PATTERN = re.compile(r"\[[^]]+\]\((decisions/[^)]+\.md)\)\s*$")
 ADR_FILE_PATTERN = re.compile(r"docs/adr/\d{4}-[a-z0-9-]+\.md$")
 TRIGGER_PREFIXES = ("config/", "harness/", "docs/adr/", "scripts/")
 TRIGGER_FILES = {"pyproject.toml", "package.json"}
+PRE_PUSH_FIELD_COUNT = 4
 
 
 @dataclass(frozen=True)
 class DecisionEntry:
+    """Parsed ADR decision metadata used to prove trigger coverage."""
+
     required: bool
     rationale: str
     files: list[str]
@@ -28,9 +33,10 @@ class DecisionEntry:
 
 
 def git_lines(*args: str) -> list[str]:
+    """Run a fixed git command and return non-empty stripped output lines."""
     try:
-        completed = subprocess.run(
-            ["git", *args],
+        completed = subprocess.run(  # noqa: S603 - Hook-owned git args are fixed internally.
+            [GIT_BINARY.as_posix(), *args],
             cwd=ROOT,
             check=True,
             capture_output=True,
@@ -43,10 +49,12 @@ def git_lines(*args: str) -> list[str]:
 
 
 def staged_files() -> list[str]:
+    """Return staged files relevant to a pre-commit check."""
     return git_lines("diff", "--cached", "--name-only", "--diff-filter=ACMR")
 
 
 def push_files() -> list[str]:
+    """Return changed files described by the pre-push stdin contract."""
     zero = "0" * 40
     raw = sys.stdin.read().strip().splitlines()
     if len(raw) > 1:
@@ -58,7 +66,7 @@ def push_files() -> list[str]:
     changed: set[str] = set()
     for line in raw:
         parts = line.split()
-        if len(parts) != 4:
+        if len(parts) != PRE_PUSH_FIELD_COUNT:
             print(
                 f"BLOCKED: malformed pre-push input line: {line!r}",
                 file=sys.stderr,
@@ -90,10 +98,12 @@ def push_files() -> list[str]:
 
 
 def is_decision_artifact(path: str) -> bool:
+    """Return whether a path is the ADR decision bookkeeping itself."""
     return path == "docs/adr/decision-log.md" or path.startswith("docs/adr/decisions/")
 
 
 def is_trigger(path: str) -> bool:
+    """Return whether a changed path requires ADR decision coverage."""
     if is_decision_artifact(path):
         return False
     if path in TRIGGER_FILES:
@@ -102,10 +112,12 @@ def is_trigger(path: str) -> bool:
 
 
 def actual_adr_changes(changed: list[str]) -> list[str]:
+    """Filter changed paths down to committed ADR document files."""
     return sorted(path for path in changed if ADR_FILE_PATTERN.fullmatch(path))
 
 
 def parse_decision_file(path: Path) -> DecisionEntry | None:
+    """Parse the small decision-record subset used by the gate."""
     if not path.exists():
         return None
 
@@ -147,11 +159,15 @@ def parse_decision_file(path: Path) -> DecisionEntry | None:
     if required is None or not saw_files or not saw_adr_paths:
         return None
     return DecisionEntry(
-        required=required, rationale=rationale, files=files, adr_paths=adr_paths
+        required=required,
+        rationale=rationale,
+        files=files,
+        adr_paths=adr_paths,
     )
 
 
 def latest_decision_path() -> Path | None:
+    """Resolve the final non-empty decision-log entry to its decision file."""
     if not DECISION_LOG.exists():
         return None
 
@@ -177,12 +193,14 @@ def latest_decision_path() -> Path | None:
 
 
 def parse_args() -> argparse.Namespace:
+    """Parse the hook mode selector."""
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=["staged", "push"], default="staged")
     return parser.parse_args()
 
 
 def main() -> None:
+    """Enforce ADR decision coverage for hook-triggering changes."""
     args = parse_args()
     changed = staged_files() if args.mode == "staged" else push_files()
     triggered = sorted(path for path in changed if is_trigger(path))
@@ -196,9 +214,7 @@ def main() -> None:
         )
         raise SystemExit(1)
 
-    decision_artifacts = sorted(
-        path for path in changed if path.startswith("docs/adr/decisions/")
-    )
+    decision_artifacts = sorted(path for path in changed if path.startswith("docs/adr/decisions/"))
     if not decision_artifacts:
         print(
             "BLOCKED: ADR-triggering change requires a docs/adr/decisions/*.md record",
@@ -224,16 +240,18 @@ def main() -> None:
 
     decision = parse_decision_file(decision_path)
     if decision is None:
+        relative_decision_path = decision_path.relative_to(ROOT)
         print(
-            f"BLOCKED: ADR decision file is missing or malformed: {decision_path.relative_to(ROOT)}",
+            f"BLOCKED: ADR decision file is missing or malformed: {relative_decision_path}",
             file=sys.stderr,
         )
         raise SystemExit(1)
 
     missing = [path for path in triggered if path not in decision.files]
     if missing:
+        missing_list = ", ".join(missing)
         print(
-            f"BLOCKED: latest ADR decision entry does not cover changed files: {', '.join(missing)}",
+            f"BLOCKED: latest ADR decision entry does not cover changed files: {missing_list}",
             file=sys.stderr,
         )
         raise SystemExit(1)
@@ -252,7 +270,8 @@ def main() -> None:
             raise SystemExit(1)
         if sorted(decision.adr_paths) != adr_changes:
             print(
-                "BLOCKED: adr_required=true but latest decision entry adr_paths do not match changed ADR files",
+                "BLOCKED: adr_required=true but latest decision entry adr_paths do not "
+                "match changed ADR files",
                 file=sys.stderr,
             )
             raise SystemExit(1)

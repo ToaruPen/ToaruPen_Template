@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
+"""Create an ADR decision record for staged or worktree changes."""
+
 from __future__ import annotations
 
 import argparse
-from dataclasses import dataclass
-from datetime import UTC, datetime
-from pathlib import Path
 import re
 import subprocess
 import sys
-
+from dataclasses import dataclass
+from datetime import UTC, datetime
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+GIT_BINARY = Path("/usr/bin/git")
 ADR_DIR = ROOT / "docs" / "adr"
 DECISION_LOG = ADR_DIR / "decision-log.md"
 DECISIONS_DIR = ADR_DIR / "decisions"
@@ -24,6 +26,8 @@ individual decision artifact under `docs/adr/decisions/`.
 
 @dataclass(frozen=True)
 class DecisionEntry:
+    """Normalized fields written to a durable ADR decision record."""
+
     timestamp: str
     change: str
     required: bool
@@ -33,8 +37,9 @@ class DecisionEntry:
 
 
 def run_git_lines(*args: str) -> list[str]:
-    completed = subprocess.run(
-        ["git", *args],
+    """Run a fixed git query and return non-empty stripped output lines."""
+    completed = subprocess.run(  # noqa: S603 - Script-owned git args are fixed internally.
+        [GIT_BINARY.as_posix(), *args],
         cwd=ROOT,
         check=True,
         capture_output=True,
@@ -44,6 +49,7 @@ def run_git_lines(*args: str) -> list[str]:
 
 
 def parse_args() -> argparse.Namespace:
+    """Parse the decision-record creation options."""
     parser = argparse.ArgumentParser()
     parser.add_argument("--required", choices=["true", "false"], required=True)
     parser.add_argument("--change", required=True)
@@ -54,16 +60,19 @@ def parse_args() -> argparse.Namespace:
 
 
 def changed_files(mode: str) -> list[str]:
+    """Return changed paths for the selected source."""
     if mode == "staged":
         return run_git_lines("diff", "--cached", "--name-only", "--diff-filter=ACMR")
     return run_git_lines("diff", "--name-only", "--diff-filter=ACMR")
 
 
 def is_decision_artifact(path: str) -> bool:
+    """Return whether a path is ADR decision bookkeeping."""
     return path == "docs/adr/decision-log.md" or path.startswith("docs/adr/decisions/")
 
 
 def unique_paths(paths: list[str]) -> list[str]:
+    """Preserve first-seen path order while removing duplicates."""
     seen: set[str] = set()
     ordered: list[str] = []
     for path in paths:
@@ -75,11 +84,13 @@ def unique_paths(paths: list[str]) -> list[str]:
 
 
 def slugify(value: str) -> str:
+    """Collapse arbitrary change text to a stable filename segment."""
     slug = re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
     return slug or "decision"
 
 
 def next_decision_path(timestamp: str, change: str) -> Path:
+    """Choose the first unused decision-record path for a timestamp and change."""
     date_prefix = timestamp[:10]
     base_name = f"{date_prefix}-{slugify(change)}"
     candidate = DECISIONS_DIR / f"{base_name}.md"
@@ -95,6 +106,7 @@ def next_decision_path(timestamp: str, change: str) -> Path:
 
 
 def format_decision_file(entry: DecisionEntry) -> str:
+    """Render the line-oriented decision format parsed by the gate script."""
     lines = [
         "# ADR Decision Record",
         "",
@@ -118,6 +130,7 @@ def format_decision_file(entry: DecisionEntry) -> str:
 
 
 def append_index_entry(*, timestamp: str, change: str, required: bool, decision_path: Path) -> None:
+    """Append an index line while preserving a missing-file bootstrap path."""
     relative_path = decision_path.relative_to(ADR_DIR).as_posix()
     line = (
         f"- {timestamp} | adr_required={'true' if required else 'false'} | {change} | "
@@ -140,6 +153,7 @@ def create_entry(
     files: list[str],
     adr_paths: list[str],
 ) -> Path:
+    """Write one decision record and append its index entry."""
     timestamp = datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     entry = DecisionEntry(
         timestamp=timestamp,
@@ -162,6 +176,7 @@ def create_entry(
 
 
 def require_single_line(*, field: str, value: str) -> str:
+    """Reject empty or multiline CLI values before they reach the record format."""
     if "\n" in value or "\r" in value:
         print(f"--{field} must be a single line", file=sys.stderr)
         raise SystemExit(1)
@@ -173,12 +188,17 @@ def require_single_line(*, field: str, value: str) -> str:
 
 
 def main() -> None:
+    """Create the decision record requested on the command line."""
     args = parse_args()
     required = args.required == "true"
     change = require_single_line(field="change", value=args.change)
     rationale = require_single_line(field="rationale", value=args.rationale)
-    files = unique_paths([path for path in changed_files(args.mode) if not is_decision_artifact(path)])
-    adr_paths = unique_paths([require_single_line(field="adr", value=path) for path in args.adr_paths])
+    files = unique_paths(
+        [path for path in changed_files(args.mode) if not is_decision_artifact(path)],
+    )
+    adr_paths = unique_paths(
+        [require_single_line(field="adr", value=path) for path in args.adr_paths],
+    )
     if required and not adr_paths:
         print("--adr is required when --required=true", file=sys.stderr)
         raise SystemExit(1)
