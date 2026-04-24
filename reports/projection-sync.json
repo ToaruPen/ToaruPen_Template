@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T22:48:15Z",
+  "generated_at": "2026-04-24T22:59:35Z",
   "tool": "scripts/check_projection_sync.py",
   "projections": [
     {
@@ -18,7 +18,7 @@
       },
       "inputs": {
         "AGENTS.md": {
-          "sha256": "4a8806eb9de201489785550c46271e5d74bb44007ad282d2e827a88e7b4f7d90",
+          "sha256": "da97a379041450be66dc8296959054af5a54154b5e9e7a0229a93c08fcf9acf7",
           "kind": "file"
         },
         "harness/manifest.yaml": {
@@ -39,13 +39,12 @@
         "kind": "symlink",
         "canonical_source": "AGENTS.md",
         "resolved_path": "AGENTS.md",
-        "resolved_sha256": "4a8806eb9de201489785550c46271e5d74bb44007ad282d2e827a88e7b4f7d90"
+        "resolved_sha256": "da97a379041450be66dc8296959054af5a54154b5e9e7a0229a93c08fcf9acf7"
       },
       "changes_since_last_report": [
-        "AGENTS.md",
-        "harness/manifest.yaml"
+        "AGENTS.md"
       ],
-      "checked_at": "2026-04-24T22:48:15Z"
+      "checked_at": "2026-04-24T22:59:35Z"
     },
     {
       "projection": "harness/projections/openai-agents.yaml",
@@ -97,16 +96,10 @@
       "output": {
         "path": "AGENTS.md",
         "kind": "file",
-        "sha256": "4a8806eb9de201489785550c46271e5d74bb44007ad282d2e827a88e7b4f7d90"
+        "sha256": "da97a379041450be66dc8296959054af5a54154b5e9e7a0229a93c08fcf9acf7"
       },
-      "changes_since_last_report": [
-        "README.md",
-        "harness/manifest.yaml",
-        "harness/context-index.yaml",
-        "harness/policy.yaml",
-        "harness/review.yaml"
-      ],
-      "checked_at": "2026-04-24T22:48:15Z"
+      "changes_since_last_report": [],
+      "checked_at": "2026-04-24T22:59:35Z"
     }
   ]
 }
