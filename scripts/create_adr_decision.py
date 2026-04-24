@@ -12,7 +12,6 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-GIT_BINARY = Path("/usr/bin/git")
 ADR_DIR = ROOT / "docs" / "adr"
 DECISION_LOG = ADR_DIR / "decision-log.md"
 DECISIONS_DIR = ADR_DIR / "decisions"
@@ -38,8 +37,8 @@ class DecisionEntry:
 
 def run_git_lines(*args: str) -> list[str]:
     """Run a fixed git query and return non-empty stripped output lines."""
-    completed = subprocess.run(  # noqa: S603 - Script-owned git args are fixed internally.
-        [GIT_BINARY.as_posix(), *args],
+    completed = subprocess.run(  # noqa: S603 - git args are fixed internally.
+        ["git", *args],  # noqa: S607 - git resolved via PATH for hook portability.
         cwd=ROOT,
         check=True,
         capture_output=True,
