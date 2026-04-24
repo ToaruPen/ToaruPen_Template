@@ -113,6 +113,14 @@ def relative_to_root(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
 
+def safe_relative_to_root(path: Path) -> str:
+    """Return path relative to ROOT, or the absolute path if outside ROOT."""
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def ruby_inspect(value: object) -> str:
     """Render the unsupported-mode value like Ruby String#inspect for error text."""
     if isinstance(value, str):
@@ -241,7 +249,7 @@ def symlink_output_check(
     if actual != expected:
         errors.append(
             f"{context.projection_path}: {context.output_path} resolves to "
-            f"{relative_to_root(actual)} not {canonical_source}",
+            f"{safe_relative_to_root(actual)} not {canonical_source}",
         )
         return None
 

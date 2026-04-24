@@ -192,6 +192,32 @@ def test_check_projection_sync_reports_missing_canonical_source_without_crashing
     assert "Traceback" not in completed.stderr
 
 
+def test_check_projection_sync_reports_out_of_tree_symlink_target_without_crashing(
+    tmp_path: Path,
+) -> None:
+    script_path = copy_script(tmp_path)
+    (tmp_path / "input.md").write_text("input\n", encoding="utf-8")
+    external_target = tmp_path.parent / f"{tmp_path.name}-external.md"
+    external_target.write_text("external\n", encoding="utf-8")
+    (tmp_path / "external-link.md").symlink_to(external_target)
+    write_projection(
+        tmp_path,
+        "out-of-tree-target.yaml",
+        "target:\n"
+        "  output_path: external-link.md\n"
+        "realization:\n"
+        "  mode: symlink\n"
+        "  canonical_source: input.md\n",
+    )
+
+    completed = run_script(script_path, tmp_path)
+
+    assert completed.returncode == 1
+    assert external_target.as_posix() in completed.stderr
+    assert "not input.md" in completed.stderr
+    assert "ValueError" not in completed.stderr
+
+
 def test_check_projection_sync_matches_committed_report_modulo_timestamps() -> None:
     script_path = ROOT / "scripts" / "check_projection_sync.py"
     committed_report_path = ROOT / "reports" / "projection-sync.json"
